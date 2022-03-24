@@ -288,6 +288,9 @@ int main(int argc, char * argv[])
 	//============================================================================
  	// Decoder
 	//============================================================================
+
+  // REPLACE THE CODE BELOW WITH CUDA KERNEL CALLS
+
 	for (k=0;k<NbBranch;k++) {CtoV[k]=0;}
 	for (k=0;k<N;k++) Decide[k]=Receivedword[k];
 
