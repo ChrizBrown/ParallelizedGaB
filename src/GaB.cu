@@ -38,21 +38,17 @@ void DataPassGB(int *VtoC,int *CtoV,int *Receivedword,int *Interleaver,int *Colu
 	numB=0;
 	for (n=0;n<N;n++)
 	{
+		//Global=(Amplitude)*(1-2*ReceivedSymbol[n]);
 		Global=(1-2*Receivedword[n]); 
-		// for (t=0;t<ColumnDegree[n];t++) Global+=(-2)*CtoV[Interleaver[numB+t]]+1;
-		for (t=0;t<ColumnDegree[n];t++) Global+=(-2)*CtoV[Interleaver[numBcol[n]+t]]+1;
+		//Global=(1-2*(Decide[n] + Receivedword[n])); //Decide[n]^Receivedword[n];
+		for (t=0;t<ColumnDegree[n];t++) Global+=(-2)*CtoV[Interleaver[numB+t]]+1;
 
 		for (t=0;t<ColumnDegree[n];t++)
 		{
-		  // buf=Global-((-2)*CtoV[Interleaver[numB+t]]+1);
-		  // if (buf<0)  VtoC[Interleaver[numB+t]]= 1; //else VtoC[Interleaver[numB+t]]= 1;
-		  // else if (buf>0) VtoC[Interleaver[numB+t]]= 0; //else VtoC[Interleaver[numB+t]]= 1;
-		  // else  VtoC[Interleaver[numB+t]]=Receivedword[n];
-
-      buf=Global-((-2)*CtoV[Interleaver[numBcol[n]+t]]+1);
-		  if (buf<0)  VtoC[Interleaver[numBcol[n]+t]]= 1; //else VtoC[Interleaver[numB+t]]= 1;
-		  else if (buf>0) VtoC[Interleaver[numBcol[n]+t]]= 0; //else VtoC[Interleaver[numB+t]]= 1;
-		  else  VtoC[Interleaver[numBcol[n]+t]]=Receivedword[n];
+		  buf=Global-((-2)*CtoV[Interleaver[numB+t]]+1);
+		  if (buf<0)  VtoC[Interleaver[numB+t]]= 1; //else VtoC[Interleaver[numB+t]]= 1;
+		  else if (buf>0) VtoC[Interleaver[numB+t]]= 0; //else VtoC[Interleaver[numB+t]]= 1;
+		  else  VtoC[Interleaver[numB+t]]=Receivedword[n];
 		}
 		numB=numB+ColumnDegree[n];
 	}
@@ -61,14 +57,10 @@ void DataPassGB(int *VtoC,int *CtoV,int *Receivedword,int *Interleaver,int *Colu
 void DataPassGBIter0(int *VtoC,int *CtoV,int *Receivedword,int *Interleaver,int *ColumnDegree,int N,int* numBcol)
 {
 	int t,numB,n;
-	
 	numB=0;
 	for (n=0;n<N;n++)
 	{
-		// for (t=0;t<ColumnDegree[n];t++)     VtoC[Interleaver[numB+t]]=Receivedword[n];
-		// numB=numB+ColumnDegree[n];
-
-    for (t=0;t<ColumnDegree[n];t++)     VtoC[Interleaver[numBcol[n]+t]]=Receivedword[n];
+		for (t=0;t<ColumnDegree[n];t++)     VtoC[Interleaver[numB+t]]=Receivedword[n];
 		numB=numB+ColumnDegree[n];
 	}
 }
@@ -78,25 +70,21 @@ void CheckPassGB(int *CtoV,int *VtoC,int M,int* numBrow,int *RowDegree)
    int t,numB=0,m,signe;
    for (m=0;m<M;m++)
    {
-		// signe=0;for (t=0;t<RowDegree[m];t++) signe^=VtoC[numB+t];
-	  //   for (t=0;t<RowDegree[m];t++) 	CtoV[numB+t]=signe^VtoC[numB+t];
-		
-    signe=0;for (t=0;t<RowDegree[m];t++) signe^=VtoC[numBrow[m]+t];
-	  for (t=0;t<RowDegree[m];t++) 	CtoV[numBrow[m]+t]=signe^VtoC[numBrow[m]+t];
-    numB=numB+RowDegree[m];
+		signe=0;for (t=0;t<RowDegree[m];t++) signe^=VtoC[numB+t];
+	    for (t=0;t<RowDegree[m];t++) 	CtoV[numB+t]=signe^VtoC[numB+t];
+		numB=numB+RowDegree[m];
    }
 }
 //#####################################################################################################
 void APP_GB(int *Decide,int *CtoV,int *Receivedword,int *Interleaver,int *ColumnDegree,int N,int M,int* numBcol)
 {
-  int t,numB,n;
+   	int t,numB,n;
 	int Global;
 	numB=0;
 	for (n=0;n<N;n++)
 	{
 		Global=(1-2*Receivedword[n]);
-		// for (t=0;t<ColumnDegree[n];t++) Global+=(-2)*CtoV[Interleaver[numB+t]]+1;
-		for (t=0;t<ColumnDegree[n];t++) Global+=(-2)*CtoV[Interleaver[numBcol[n]+t]]+1;
+		for (t=0;t<ColumnDegree[n];t++) Global+=(-2)*CtoV[Interleaver[numB+t]]+1;
         if(Global>0) Decide[n]= 0;
         else if (Global<0) Decide[n]= 1;
         else  Decide[n]=Receivedword[n];
@@ -251,8 +239,11 @@ int main(int argc, char * argv[])
     //   printf("numBrow[%d]= %d\n",m,numB);
     // }
 		numBrow[m] = numB;
+    // printf("%d\n", numB);
     numB=numB+RowDegree[m];
   }
+    // exit(0);
+
 
   numBcol=(int *)calloc(N,sizeof(int));
 	numB=0;
@@ -262,6 +253,7 @@ int main(int argc, char * argv[])
     //   printf("numBcol[%d]= %d\n",n,numB);
     // }
 		numBcol[n] = numB;
+    // printf("%d\n", numB);
 		numB=numB+ColumnDegree[n];
 	}
 
@@ -278,6 +270,8 @@ int main(int argc, char * argv[])
     cudaMemcpy(temp_i_ptrs[m], Mat[m], RowDegree[m] * sizeof(int), cudaMemcpyHostToDevice);
   }
   cudaMemcpy(device_Mat, temp_i_ptrs, sizeof(int*) * M, cudaMemcpyHostToDevice);
+
+  // for(int a=0;a<M;a++){for(int b=0;b<RowDegree[a];b++){printf("%d\n",Mat[a][b]);}}
 
   cudaMalloc((void **)&device_RowDegree, M * sizeof(int));
   cudaMemcpy(device_RowDegree, RowDegree, M * sizeof(int), cudaMemcpyHostToDevice);
@@ -315,13 +309,15 @@ int main(int argc, char * argv[])
   cudaMalloc((void **)&device_IsCodeword, sizeof(int));
   
   // Set Up GPU Kernel Dimensions
-  dim3 blockDim(32,1,1),gridDim;
-  if(M > N){
-    gridDim = ((M-1)/32);
-  }
-  else{
-    gridDim = ((N-1)/32);
-  }
+  dim3 blockDim(M),gridDim(32);
+
+  // dim3 blockDim,gridDim(32);
+  // if(M > N){
+  //   blockDim = (M/2);
+  // }
+  // else{
+  //   blockDim = (N/2);
+  // }
 
   // ----------------------------------------------------
   // Gaussian Elimination for the Encoding Matrix (Full Representation)
@@ -381,24 +377,28 @@ int main(int argc, char * argv[])
   if(argc == 3){ //parallel
     // Clear CtoV
     // for (k=0;k<NbBranch;k++) {CtoV[k]=0;} // CAN WE SKIP THIS IF WE ENSURE TO SET ALL VALUES in CtoV b4 processing via syncThread()? 
-    cudaMemset(device_CtoV, 0, N * sizeof(int));
+    // cudaMemset(device_CtoV, 0, N * sizeof(int));
 
     // Copy Received Word to the GPU
-    // for (k=0;k<N;k++) Decide[k]=Receivedword[k];
     cudaMemcpy(device_Decide, Receivedword, N * sizeof(int), cudaMemcpyHostToDevice);
     cudaMemcpy(device_Receivedword, Receivedword, N * sizeof(int), cudaMemcpyHostToDevice);
-    cudaMemcpy(device_IsCodeword, 0, sizeof(int),cudaMemcpyHostToDevice); 
 
-    global_decode<<<gridDim,blockDim>>>(device_VtoC,device_CtoV,device_Mat,device_RowDegree,device_ColumnDegree,
-                                        device_Decide,device_Receivedword,device_Interleaver,M,N,
-                                        device_numBrow,device_numBcol,NbIter,device_IsCodeword);
+    for (iter=0;iter<NbIter;iter++){
+      // Reset IsCodeword
+      cudaMemset(device_IsCodeword, 1, sizeof(int));
+      // Call Decode
+      global_decode<<<gridDim,blockDim>>>(device_VtoC,device_CtoV,device_Mat,device_RowDegree,device_ColumnDegree,
+                                          device_Decide,device_Receivedword,device_Interleaver,M,N,
+                                          device_numBrow,device_numBcol,iter,device_IsCodeword);
+      //Retreive IsCodeWord
+      cudaMemcpy(&IsCodeword,device_IsCodeword, sizeof(int), cudaMemcpyDeviceToHost);  
+      if (IsCodeword){
+          break;
+      }  
+    }
 
-    //============================================================================
-    // Get IsCodeWord and Decide array back from CPU
-	  //============================================================================
+    // Get Decide array back from CPU
     cudaMemcpy(Decide, device_Decide, N * sizeof(int), cudaMemcpyDeviceToHost);
-    cudaMemcpy(&IsCodeword,&device_IsCodeword, sizeof(int), cudaMemcpyDeviceToHost);
-
   }
   else{ //serial
     // REPLACE THE CODE BELOW WITH CUDA KERNEL CALLS -------------------------------------------------

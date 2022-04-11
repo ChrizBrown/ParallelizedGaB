@@ -92,11 +92,13 @@ __device__ int ComputeSyndrome_(int *Decide,int **Mat,int *RowDegree,int M)
 		for (l=0;l<RowDegree[k];l++){
       Synd=Synd^Decide[Mat[k][l]];
     }
-	  return(1-Synd);
+
+    if(Synd == 1){
+      return (0);
+    }
 	}
-  else{
-    return -1;
-  }
+  
+  return (-1);
 
   // if(k<M){
   //   printf("Finished ComputeSyndrome_\n");
@@ -107,31 +109,25 @@ __device__ int ComputeSyndrome_(int *Decide,int **Mat,int *RowDegree,int M)
 // global memory only version
 __global__ void global_decode(int *VtoC,int *CtoV,int** Mat,int* RowDegree,int* ColumnDegree,
                               int* Decide,int *Receivedword,int *Interleaver,int M,int N,
-                              int *numBrow,int *numBcol, int NbIter, int* isCodeWord){
+                              int *numBrow,int *numBcol, int iter, int* isCodeWord){
 
   // int idx = threadIdx.x + blockIdx.x * blockDim.x;
 
-	for (int iter=0;iter<NbIter;iter++){      
-      if(iter==0){
-        DataPassGBIter0_(VtoC,CtoV,Receivedword,Interleaver,ColumnDegree,N,numBcol);
-      }
-		  else{
-        DataPassGB_(VtoC,CtoV,Receivedword,Interleaver,ColumnDegree,N,numBcol);
-      }
-      __syncthreads();
-		  
-      CheckPassGB_(CtoV,VtoC,M,RowDegree,numBrow);
-      __syncthreads();
+  if(iter==0){
+    DataPassGBIter0_(VtoC,CtoV,Receivedword,Interleaver,ColumnDegree,N,numBcol);
+  }
+  else{
+    DataPassGB_(VtoC,CtoV,Receivedword,Interleaver,ColumnDegree,N,numBcol);
+  }
+  __syncthreads();
+  
+  CheckPassGB_(CtoV,VtoC,M,RowDegree,numBrow);
+  __syncthreads();
 
-      APP_GB_(Decide,CtoV,Receivedword,Interleaver,ColumnDegree,N,M,numBcol);
-      __syncthreads();
+  APP_GB_(Decide,CtoV,Receivedword,Interleaver,ColumnDegree,N,M,numBcol);
+  __syncthreads();
 
-      *isCodeWord = ComputeSyndrome_(Decide,Mat,RowDegree,M);
-      __syncthreads();
-
-      // if (idx == 0 && !hasErrors){
-      //   printf("Total iterations = %d\n", iter+1);
-      //   break;
-      // } 
-	}
+  if(ComputeSyndrome_(Decide,Mat,RowDegree,M) == 0){
+    *isCodeWord = 0;
+  }
 }
