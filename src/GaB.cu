@@ -481,6 +481,7 @@ cudaFree(device_VtoC);
 cudaFree(device_Codeword);
 cudaFree(device_Receivedword);
 cudaFree(device_Decide);
+cudaFree(device_IsCodeword);
 
 fclose(f);
 return(0);
