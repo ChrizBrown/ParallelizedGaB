@@ -31,62 +31,72 @@
 
 
 //#####################################################################################################
-void DataPassGB(int *VtoC,int *CtoV,int *Receivedword,int *InterResult,int *Interleaver,int *ColumnDegree,int N,int NbBranch)
+void DataPassGB(int *VtoC,int *CtoV,int *Receivedword,int *Interleaver,int *ColumnDegree,int N,int* numBcol)
 {
 	int t,numB,n,buf;
 	int Global;
 	numB=0;
 	for (n=0;n<N;n++)
 	{
-		//Global=(Amplitude)*(1-2*ReceivedSymbol[n]);
 		Global=(1-2*Receivedword[n]); 
-		//Global=(1-2*(Decide[n] + Receivedword[n])); //Decide[n]^Receivedword[n];
-		for (t=0;t<ColumnDegree[n];t++) Global+=(-2)*CtoV[Interleaver[numB+t]]+1;
+		// for (t=0;t<ColumnDegree[n];t++) Global+=(-2)*CtoV[Interleaver[numB+t]]+1;
+		for (t=0;t<ColumnDegree[n];t++) Global+=(-2)*CtoV[Interleaver[numBcol[n]+t]]+1;
 
 		for (t=0;t<ColumnDegree[n];t++)
 		{
-		  buf=Global-((-2)*CtoV[Interleaver[numB+t]]+1);
-		  if (buf<0)  VtoC[Interleaver[numB+t]]= 1; //else VtoC[Interleaver[numB+t]]= 1;
-		  else if (buf>0) VtoC[Interleaver[numB+t]]= 0; //else VtoC[Interleaver[numB+t]]= 1;
-		  else  VtoC[Interleaver[numB+t]]=Receivedword[n];
+		  // buf=Global-((-2)*CtoV[Interleaver[numB+t]]+1);
+		  // if (buf<0)  VtoC[Interleaver[numB+t]]= 1; //else VtoC[Interleaver[numB+t]]= 1;
+		  // else if (buf>0) VtoC[Interleaver[numB+t]]= 0; //else VtoC[Interleaver[numB+t]]= 1;
+		  // else  VtoC[Interleaver[numB+t]]=Receivedword[n];
+
+      buf=Global-((-2)*CtoV[Interleaver[numBcol[n]+t]]+1);
+		  if (buf<0)  VtoC[Interleaver[numBcol[n]+t]]= 1; //else VtoC[Interleaver[numB+t]]= 1;
+		  else if (buf>0) VtoC[Interleaver[numBcol[n]+t]]= 0; //else VtoC[Interleaver[numB+t]]= 1;
+		  else  VtoC[Interleaver[numBcol[n]+t]]=Receivedword[n];
 		}
 		numB=numB+ColumnDegree[n];
 	}
 }
 //#####################################################################################################
-//#####################################################################################################
-void DataPassGBIter0(int *VtoC,int *CtoV,int *Receivedword,int *InterResult,int *Interleaver,int *ColumnDegree,int N,int NbBranch)
+void DataPassGBIter0(int *VtoC,int *CtoV,int *Receivedword,int *Interleaver,int *ColumnDegree,int N,int* numBcol)
 {
-	int t,numB,n,buf;
-	int Global;
+	int t,numB,n;
+	
 	numB=0;
 	for (n=0;n<N;n++)
 	{
-		for (t=0;t<ColumnDegree[n];t++)     VtoC[Interleaver[numB+t]]=Receivedword[n];
+		// for (t=0;t<ColumnDegree[n];t++)     VtoC[Interleaver[numB+t]]=Receivedword[n];
+		// numB=numB+ColumnDegree[n];
+
+    for (t=0;t<ColumnDegree[n];t++)     VtoC[Interleaver[numBcol[n]+t]]=Receivedword[n];
 		numB=numB+ColumnDegree[n];
 	}
 }
 //##################################################################################################
-void CheckPassGB(int *CtoV,int *VtoC,int M,int NbBranch,int *RowDegree)
+void CheckPassGB(int *CtoV,int *VtoC,int M,int* numBrow,int *RowDegree)
 {
    int t,numB=0,m,signe;
    for (m=0;m<M;m++)
    {
-		signe=0;for (t=0;t<RowDegree[m];t++) signe^=VtoC[numB+t];
-	    for (t=0;t<RowDegree[m];t++) 	CtoV[numB+t]=signe^VtoC[numB+t];
-		numB=numB+RowDegree[m];
+		// signe=0;for (t=0;t<RowDegree[m];t++) signe^=VtoC[numB+t];
+	  //   for (t=0;t<RowDegree[m];t++) 	CtoV[numB+t]=signe^VtoC[numB+t];
+		
+    signe=0;for (t=0;t<RowDegree[m];t++) signe^=VtoC[numBrow[m]+t];
+	  for (t=0;t<RowDegree[m];t++) 	CtoV[numBrow[m]+t]=signe^VtoC[numBrow[m]+t];
+    numB=numB+RowDegree[m];
    }
 }
 //#####################################################################################################
-void APP_GB(int *Decide,int *CtoV,int *Receivedword,int *Interleaver,int *ColumnDegree,int N,int M,int NbBranch)
+void APP_GB(int *Decide,int *CtoV,int *Receivedword,int *Interleaver,int *ColumnDegree,int N,int M,int* numBcol)
 {
-   	int t,numB,n,buf;
+  int t,numB,n;
 	int Global;
 	numB=0;
 	for (n=0;n<N;n++)
 	{
 		Global=(1-2*Receivedword[n]);
-		for (t=0;t<ColumnDegree[n];t++) Global+=(-2)*CtoV[Interleaver[numB+t]]+1;
+		// for (t=0;t<ColumnDegree[n];t++) Global+=(-2)*CtoV[Interleaver[numB+t]]+1;
+		for (t=0;t<ColumnDegree[n];t++) Global+=(-2)*CtoV[Interleaver[numBcol[n]+t]]+1;
         if(Global>0) Decide[n]= 0;
         else if (Global<0) Decide[n]= 1;
         else  Decide[n]=Receivedword[n];
@@ -160,23 +170,20 @@ int GaussianElimination_MRB(int *Perm,int **MatOut,int **Mat,int M,int N)
 int main(int argc, char * argv[])
 {
   // Variables Declaration
-  FILE *f,*f1;
+  FILE *f;
   int Graine,NbIter,nbtestedframes,NBframes;
   float alpha_max, alpha_min,alpha_step,alpha,NbMonteCarlo;
   // ----------------------------------------------------
   // lecture des param de la ligne de commande
   // ----------------------------------------------------
-  char *FileName,*FileMatrix,*FileResult,*FileSimu,*name;
+  char *FileName,*FileMatrix,*FileResult;
   FileName=(char *)malloc(200);
   FileMatrix=(char *)malloc(200);
   FileResult=(char *)malloc(200);
-  FileSimu=(char *)malloc(200);
-  name=(char *)malloc(200);
-
-
 
   strcpy(FileMatrix,argv[1]); 	// Matrix file
   strcpy(FileResult,argv[2]); 	// Results file
+
   //--------------Simulation input for GaB BF-------------------------
   NbMonteCarlo=100000000000;	    // Maximum nb of codewords sent
   NbIter=100; 	            // Maximum nb of iterations
@@ -194,7 +201,7 @@ int main(int argc, char * argv[])
   // Load Matrix
   // ----------------------------------------------------
   int *ColumnDegree,*RowDegree,**Mat;
-  int M,N,m,n,k,i,j;
+  int M,N,m,n,k;
   strcpy(FileName,FileMatrix);strcat(FileName,"_size");
   f=fopen(FileName,"r");fscanf(f,"%d",&M);fscanf(f,"%d",&N);
   ColumnDegree=(int *)calloc(N,sizeof(int));
@@ -225,8 +232,8 @@ int main(int argc, char * argv[])
   // ----------------------------------------------------
   // Decoder
   // ----------------------------------------------------
-  int *CtoV,*VtoC,*Codeword,*Receivedword,*Decide,*U,l,kk;
-  int iter,numB;
+  int *CtoV,*VtoC,*Codeword,*Receivedword,*Decide,*U,l,*numBrow,*numBcol;
+  int iter;
   CtoV=(int *)calloc(NbBranch,sizeof(int));
   VtoC=(int *)calloc(NbBranch,sizeof(int));
   Codeword=(int *)calloc(N,sizeof(int));
@@ -234,6 +241,87 @@ int main(int argc, char * argv[])
   Decide=(int *)calloc(N,sizeof(int));
   U=(int *)calloc(N,sizeof(int));
   srand48(time(0)+Graine*31+113);
+
+  //precompute numB values
+  numBrow=(int *)calloc(M,sizeof(int));
+ 	int numB=0;
+  for (m=0;m<M;m++)
+  {
+    // if(m == M-1){
+    //   printf("numBrow[%d]= %d\n",m,numB);
+    // }
+		numBrow[m] = numB;
+    numB=numB+RowDegree[m];
+  }
+
+  numBcol=(int *)calloc(N,sizeof(int));
+	numB=0;
+	for (n=0;n<N;n++)
+	{
+    // if(n == N-1){
+    //   printf("numBcol[%d]= %d\n",n,numB);
+    // }
+		numBcol[n] = numB;
+		numB=numB+ColumnDegree[n];
+	}
+
+  // ----------------------------------------------------
+  // Allocate and fill GPU Data for Matrix and Decoder
+  // ----------------------------------------------------
+  int *device_ColumnDegree,*device_RowDegree,**device_Mat,*device_Interleaver,*device_numBrow,*device_numBcol;
+  
+  // Initialize and Fill Matrix and Degree Arrays on Device (Should never be modified)
+  cudaMalloc((void **)&device_Mat, M * sizeof(int*));
+  int** temp_i_ptrs = (int**) malloc(M * sizeof(int*));
+  for (m=0;m<M;m++){
+    cudaMalloc((void**)&temp_i_ptrs[m], RowDegree[m] * sizeof(int));
+    cudaMemcpy(temp_i_ptrs[m], Mat[m], RowDegree[m] * sizeof(int), cudaMemcpyHostToDevice);
+  }
+  cudaMemcpy(device_Mat, temp_i_ptrs, sizeof(int*) * M, cudaMemcpyHostToDevice);
+
+  cudaMalloc((void **)&device_RowDegree, M * sizeof(int));
+  cudaMemcpy(device_RowDegree, RowDegree, M * sizeof(int), cudaMemcpyHostToDevice);
+
+  cudaMalloc((void **)&device_ColumnDegree, N * sizeof(int));
+  cudaMemcpy(device_ColumnDegree, ColumnDegree, N * sizeof(int), cudaMemcpyHostToDevice);
+
+  cudaMalloc((void **)&device_Interleaver, NbBranch * sizeof(int));
+  cudaMemcpy(device_Interleaver, Interleaver, NbBranch * sizeof(int), cudaMemcpyHostToDevice);
+
+  cudaMalloc((void **)&device_numBrow, M * sizeof(int));
+  cudaMemcpy(device_numBrow, numBrow, M * sizeof(int), cudaMemcpyHostToDevice);
+
+  cudaMalloc((void **)&device_numBcol, N * sizeof(int));
+  cudaMemcpy(device_numBcol, numBcol, N * sizeof(int), cudaMemcpyHostToDevice);
+
+  int *device_CtoV,*device_VtoC,*device_Codeword,*device_Receivedword,*device_Decide,*device_IsCodeword;
+
+  // Initialize GaB node connections and Codeword Arrays on Device
+  cudaMalloc((void **)&device_CtoV, NbBranch * sizeof(int));
+  cudaMemset((void **)&device_CtoV, 0, NbBranch * sizeof(int));
+  
+  cudaMalloc((void **)&device_VtoC, NbBranch * sizeof(int));
+  cudaMemset((void **)&device_VtoC, 0, NbBranch * sizeof(int));
+  
+  cudaMalloc((void **)&device_Codeword, N * sizeof(int));
+  cudaMemset((void **)&device_Codeword, 0, N * sizeof(int));  
+  
+  cudaMalloc((void **)&device_Receivedword, N * sizeof(int));
+  cudaMemset((void **)&device_Receivedword, 0, N * sizeof(int));   
+  
+  cudaMalloc((void **)&device_Decide, N * sizeof(int));
+  cudaMemset((void **)&device_Decide, 0, N * sizeof(int));   
+
+  cudaMalloc((void **)&device_IsCodeword, sizeof(int));
+  
+  // Set Up GPU Kernel Dimensions
+  dim3 blockDim(32,1,1),gridDim;
+  if(M > N){
+    gridDim = ((M-1)/32);
+  }
+  else{
+    gridDim = ((N-1)/32);
+  }
 
   // ----------------------------------------------------
   // Gaussian Elimination for the Encoding Matrix (Full Representation)
@@ -253,8 +341,6 @@ int main(int argc, char * argv[])
   int Dmin;
   int NbTotalErrors,NbBitError;
   int NbUnDetectedErrors,NbError;
-  int *energy;
-  energy=(int *)calloc(N,sizeof(int));
 
   strcpy(FileName,FileResult);
   f=fopen(FileName,"w");
@@ -275,72 +361,127 @@ int main(int argc, char * argv[])
   //--------------------------------------------------------------
   for (nb=0,nbtestedframes=0;nb<NbMonteCarlo;nb++)
   {
-    //encoding
-    for (k=0;k<rank;k++) U[k]=0;
+  
+  //encoding
+  for (k=0;k<rank;k++) U[k]=0;
 	for (k=rank;k<N;k++) U[k]=floor(drand48()*2);
 	for (k=rank-1;k>=0;k--) { for (l=k+1;l<N;l++) U[k]=U[k]^(MatG[k][l]*U[l]); }
 	for (k=0;k<N;k++) Codeword[PermG[k]]=U[k];
+
 	// All zero codeword
 	//for (n=0;n<N;n++) { Codeword[n]=0; }
 
-    // Add Noise
-    for (n=0;n<N;n++)  if (drand48()<alpha) Receivedword[n]=1-Codeword[n]; else Receivedword[n]=Codeword[n];
-	//============================================================================
+  // Add Noise
+  for (n=0;n<N;n++)  if (drand48()<alpha) Receivedword[n]=1-Codeword[n]; else Receivedword[n]=Codeword[n];
+	
+  //============================================================================
  	// Decoder
 	//============================================================================
 
-  // REPLACE THE CODE BELOW WITH CUDA KERNEL CALLS
+  if(argc == 3){ //parallel
+    // Clear CtoV
+    // for (k=0;k<NbBranch;k++) {CtoV[k]=0;} // CAN WE SKIP THIS IF WE ENSURE TO SET ALL VALUES in CtoV b4 processing via syncThread()? 
+    cudaMemset(device_CtoV, 0, N * sizeof(int));
 
-	for (k=0;k<NbBranch;k++) {CtoV[k]=0;}
-	for (k=0;k<N;k++) Decide[k]=Receivedword[k];
+    // Copy Received Word to the GPU
+    // for (k=0;k<N;k++) Decide[k]=Receivedword[k];
+    cudaMemcpy(device_Decide, Receivedword, N * sizeof(int), cudaMemcpyHostToDevice);
+    cudaMemcpy(device_Receivedword, Receivedword, N * sizeof(int), cudaMemcpyHostToDevice);
+    cudaMemcpy(device_IsCodeword, 0, sizeof(int),cudaMemcpyHostToDevice); 
 
-	for (iter=0;iter<NbIter;iter++)
-	  {
-        if(iter==0) DataPassGBIter0(VtoC,CtoV,Receivedword,Decide,Interleaver,ColumnDegree,N,NbBranch);
-		else DataPassGB(VtoC,CtoV,Receivedword,Decide,Interleaver,ColumnDegree,N,NbBranch);
-		CheckPassGB(CtoV,VtoC,M,NbBranch,RowDegree);
-        APP_GB(Decide,CtoV,Receivedword,Interleaver,ColumnDegree,N,M,NbBranch);
+    global_decode<<<gridDim,blockDim>>>(device_VtoC,device_CtoV,device_Mat,device_RowDegree,device_ColumnDegree,
+                                        device_Decide,device_Receivedword,device_Interleaver,M,N,
+                                        device_numBrow,device_numBcol,NbIter,device_IsCodeword);
+
+    //============================================================================
+    // Get IsCodeWord and Decide array back from CPU
+	  //============================================================================
+    cudaMemcpy(Decide, device_Decide, N * sizeof(int), cudaMemcpyDeviceToHost);
+    cudaMemcpy(&IsCodeword,&device_IsCodeword, sizeof(int), cudaMemcpyDeviceToHost);
+
+  }
+  else{ //serial
+    // REPLACE THE CODE BELOW WITH CUDA KERNEL CALLS -------------------------------------------------
+    for (k=0;k<NbBranch;k++) {CtoV[k]=0;}
+
+    for (k=0;k<N;k++) Decide[k]=Receivedword[k];
+
+    for (iter=0;iter<NbIter;iter++){
+        if(iter==0){
+          DataPassGBIter0(VtoC,CtoV,Receivedword,Interleaver,ColumnDegree,N,numBcol);
+        }
+        else{
+          DataPassGB(VtoC,CtoV,Receivedword,Interleaver,ColumnDegree,N,numBcol);
+        }
+        
+        CheckPassGB(CtoV,VtoC,M,numBrow,RowDegree);
+        APP_GB(Decide,CtoV,Receivedword,Interleaver,ColumnDegree,N,M,numBcol);
+        
         IsCodeword=ComputeSyndrome(Decide,Mat,RowDegree,M);
-        if (IsCodeword) break;
-	  }
+        if (IsCodeword){
+          break;
+        } 
+    }
+    // -----------------------------------------------------------------------------------------------
+  }
+
 	//============================================================================
   	// Compute Statistics
 	//============================================================================
-      nbtestedframes++;
-	  NbError=0;for (k=0;k<N;k++)  if (Decide[k]!=Codeword[k]) NbError++;
-	  NbBitError=NbBitError+NbError;
-	// Case Divergence
-	  if (!IsCodeword)
-	  {
-		  NiterMoy=NiterMoy+NbIter;
-		  NbTotalErrors++;
-	  }
-	// Case Convergence to Right Codeword
-	  if ((IsCodeword)&&(NbError==0)) { NiterMax=max(NiterMax,iter+1); NiterMoy=NiterMoy+(iter+1); }
-	// Case Convergence to Wrong Codeword
-	  if ((IsCodeword)&&(NbError!=0))
-	  {
-		  NiterMax=max(NiterMax,iter+1); NiterMoy=NiterMoy+(iter+1);
-		  NbTotalErrors++; NbUnDetectedErrors++;
-		  Dmin=min(Dmin,NbError);
-	  }
-	// Stopping Criterion
-	 if (NbTotalErrors==NBframes) break;
-  }
-    printf("%1.5f\t\t",alpha);
-    printf("%10d (%1.16f)\t\t",NbBitError,(float)NbBitError/N/nbtestedframes);
-    printf("%4d (%1.16f)\t\t",NbTotalErrors,(float)NbTotalErrors/nbtestedframes);
-    printf("%10d\t\t",nbtestedframes);
-    printf("%1.2f(%d)\t\t",(float)NiterMoy/nbtestedframes,NiterMax);
-    printf("%d(%d)\n",NbUnDetectedErrors,Dmin);
+  nbtestedframes++;
+	NbError=0;for (k=0;k<N;k++)  if (Decide[k]!=Codeword[k]) NbError++;
+	NbBitError=NbBitError+NbError;
+	
+  // Case Divergence
+	if (!IsCodeword)
+	{
+	  NiterMoy=NiterMoy+NbIter;
+		NbTotalErrors++;
+	}
+	
+  // Case Convergence to Right Codeword
+	if ((IsCodeword)&&(NbError==0)) { NiterMax=max(NiterMax,iter+1); NiterMoy=NiterMoy+(iter+1); }
+	
+  // Case Convergence to Wrong Codeword
+	if ((IsCodeword)&&(NbError!=0))
+	{
+	  NiterMax=max(NiterMax,iter+1); NiterMoy=NiterMoy+(iter+1);
+	  NbTotalErrors++; NbUnDetectedErrors++;
+	  Dmin=min(Dmin,NbError);
+	}
 
-    fprintf(f,"%1.5f\t\t",alpha);
-    fprintf(f,"%10d (%1.8f)\t\t",NbBitError,(float)NbBitError/N/nbtestedframes);
-    fprintf(f,"%4d (%1.8f)\t\t",NbTotalErrors,(float)NbTotalErrors/nbtestedframes);
-    fprintf(f,"%10d\t\t",nbtestedframes);
-    fprintf(f,"%1.2f(%d)\t\t",(float)NiterMoy/nbtestedframes,NiterMax);
-    fprintf(f,"%d(%d)\n",NbUnDetectedErrors,Dmin);
+	// Stopping Criterion
+	if (NbTotalErrors==NBframes) break;
+  }
+  
+  printf("%1.5f\t\t",alpha);
+  printf("%10d (%1.16f)\t\t",NbBitError,(float)NbBitError/N/nbtestedframes);
+  printf("%4d (%1.16f)\t\t",NbTotalErrors,(float)NbTotalErrors/nbtestedframes);
+  printf("%10d\t\t",nbtestedframes);
+  printf("%1.2f(%d)\t\t",(float)NiterMoy/nbtestedframes,NiterMax);
+  printf("%d(%d)\n",NbUnDetectedErrors,Dmin);
+
+  fprintf(f,"%1.5f\t\t",alpha);
+  fprintf(f,"%10d (%1.8f)\t\t",NbBitError,(float)NbBitError/N/nbtestedframes);
+  fprintf(f,"%4d (%1.8f)\t\t",NbTotalErrors,(float)NbTotalErrors/nbtestedframes);
+  fprintf(f,"%10d\t\t",nbtestedframes);
+  fprintf(f,"%1.2f(%d)\t\t",(float)NiterMoy/nbtestedframes,NiterMax);
+  fprintf(f,"%d(%d)\n",NbUnDetectedErrors,Dmin);
 }
-  fclose(f);
-  return(0);
+
+// Free up GPU memory
+cudaFree(device_Mat);
+cudaFree(device_RowDegree);
+cudaFree(device_ColumnDegree);
+cudaFree(device_Interleaver);
+cudaFree(device_numBrow);
+cudaFree(device_numBcol);
+cudaFree(device_CtoV);
+cudaFree(device_VtoC);
+cudaFree(device_Codeword);
+cudaFree(device_Receivedword);
+cudaFree(device_Decide);
+
+fclose(f);
+return(0);
 }
