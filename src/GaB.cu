@@ -320,6 +320,14 @@ int main(int argc, char * argv[])
   // }
 
   // ----------------------------------------------------
+  // Initialize Timing Structures
+  // ----------------------------------------------------
+  cudaEvent_t astartEvent, astopEvent;
+  float aelapsedTime;
+  cudaEventCreate(&astartEvent);
+  cudaEventCreate(&astopEvent);
+
+  // ----------------------------------------------------
   // Gaussian Elimination for the Encoding Matrix (Full Representation)
   // ----------------------------------------------------
   int **MatFull,**MatG,*PermG;
@@ -337,14 +345,16 @@ int main(int argc, char * argv[])
   int Dmin;
   int NbTotalErrors,NbBitError;
   int NbUnDetectedErrors,NbError;
+  float timeAverage;
+
 
   strcpy(FileName,FileResult);
   f=fopen(FileName,"w");
   fprintf(f,"-------------------------Gallager B--------------------------------------------------\n");
-  fprintf(f,"alpha\t\tNbEr(BER)\t\tNbFer(FER)\t\tNbtested\t\tIterAver(Itermax)\t\tNbUndec(Dmin)\n");
+  fprintf(f,"alpha\t\tNbEr(BER)\t\tNbFer(FER)\t\tNbtested\t\tIterAver(Itermax)\t\tNbUndec(Dmin)\t\tTimePerFrame\n");
 
   printf("-------------------------Gallager B--------------------------------------------------\n");
-  printf("alpha\t\tNbEr(BER)\t\tNbFer(FER)\t\tNbtested\t\tIterAver(Itermax)\t\tNbUndec(Dmin)\n");
+  printf("alpha\t\tNbEr(BER)\t\tNbFer(FER)\t\tNbtested\t\tIterAver(Itermax)\t\tNbUndec(Dmin)\t\tTimePerFrame\n");
 
 
   for(alpha=alpha_max;alpha>=alpha_min;alpha-=alpha_step) {
@@ -353,7 +363,7 @@ int main(int argc, char * argv[])
   Dmin=1e5;
   NbTotalErrors=0;NbBitError=0;
   NbUnDetectedErrors=0;NbError=0;
-
+  timeAverage=0.0;
   //--------------------------------------------------------------
   for (nb=0,nbtestedframes=0;nb<NbMonteCarlo;nb++)
   {
@@ -373,7 +383,7 @@ int main(int argc, char * argv[])
   //============================================================================
  	// Decoder
 	//============================================================================
-
+  cudaEventRecord(astartEvent, 0);
   if(argc == 3){ //parallel
     // Clear CtoV
     // for (k=0;k<NbBranch;k++) {CtoV[k]=0;} // CAN WE SKIP THIS IF WE ENSURE TO SET ALL VALUES in CtoV b4 processing via syncThread()? 
@@ -424,6 +434,10 @@ int main(int argc, char * argv[])
     }
     // -----------------------------------------------------------------------------------------------
   }
+  cudaEventRecord(astopEvent, 0);
+  cudaEventSynchronize(astopEvent);
+  cudaEventElapsedTime(&aelapsedTime, astartEvent, astopEvent);
+  timeAverage += aelapsedTime;
 
 	//============================================================================
   	// Compute Statistics
@@ -453,20 +467,26 @@ int main(int argc, char * argv[])
 	// Stopping Criterion
 	if (NbTotalErrors==NBframes) break;
   }
+
+  float timeAveragePerNb = timeAverage/nbtestedframes;
   
   printf("%1.5f\t\t",alpha);
   printf("%10d (%1.16f)\t\t",NbBitError,(float)NbBitError/N/nbtestedframes);
   printf("%4d (%1.16f)\t\t",NbTotalErrors,(float)NbTotalErrors/nbtestedframes);
   printf("%10d\t\t",nbtestedframes);
   printf("%1.2f(%d)\t\t",(float)NiterMoy/nbtestedframes,NiterMax);
-  printf("%d(%d)\n",NbUnDetectedErrors,Dmin);
+  printf("%d(%d)\t\t",NbUnDetectedErrors,Dmin);
+  printf("%f\n",timeAveragePerNb);
+
 
   fprintf(f,"%1.5f\t\t",alpha);
   fprintf(f,"%10d (%1.8f)\t\t",NbBitError,(float)NbBitError/N/nbtestedframes);
   fprintf(f,"%4d (%1.8f)\t\t",NbTotalErrors,(float)NbTotalErrors/nbtestedframes);
   fprintf(f,"%10d\t\t",nbtestedframes);
   fprintf(f,"%1.2f(%d)\t\t",(float)NiterMoy/nbtestedframes,NiterMax);
-  fprintf(f,"%d(%d)\n",NbUnDetectedErrors,Dmin);
+  fprintf(f,"%d(%d)\t\t",NbUnDetectedErrors,Dmin);
+  fprintf(f,"%f\n",timeAveragePerNb);
+
 }
 
 // Free up GPU memory
