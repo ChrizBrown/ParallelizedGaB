@@ -297,14 +297,15 @@ int main(int argc, char * argv[])
   cudaMalloc((void **)&device_VtoC, NbBranch * sizeof(int));
   cudaMemset((void **)&device_VtoC, 0, NbBranch * sizeof(int));
   
+  const int code_word_size = N;//8 * sizeof(int);
   cudaMalloc((void **)&device_Codeword, N * sizeof(int));
   cudaMemset((void **)&device_Codeword, 0, N * sizeof(int));  
   
-  cudaMalloc((void **)&device_Receivedword, N * sizeof(int));
-  cudaMemset((void **)&device_Receivedword, 0, N * sizeof(int));   
+  cudaMalloc((void **)&device_Receivedword, code_word_size * sizeof(int));
+  cudaMemset((void **)&device_Receivedword, 0, code_word_size * sizeof(int));   
   
-  cudaMalloc((void **)&device_Decide, N * sizeof(int));
-  cudaMemset((void **)&device_Decide, 0, N * sizeof(int));   
+  cudaMalloc((void **)&device_Decide, code_word_size * sizeof(int));
+  cudaMemset((void **)&device_Decide, 0, code_word_size * sizeof(int));   
 
   cudaMalloc((void **)&device_IsCodeword, sizeof(int));
   
@@ -357,10 +358,12 @@ int main(int argc, char * argv[])
   printf("alpha\t\tNbEr(BER)\t\tNbFer(FER)\t\tNbtested\t\tIterAver(Itermax)\t\tNbUndec(Dmin)\t\tTimePerFrame\n");
 
   // Set up CUDA stream objects
-  cudaStream_t stream1;
-  cudaStream_t stream2;
-  cudaStreamCreate(&stream1);
-  cudaStreamCreate(&stream2);
+  char* temp;
+  const int num_streams = strtol(argv[3],&temp,10);
+  printf("Creating %d streams\n",num_streams);
+  cudaStream_t* pStreams = (cudaStream_t*)malloc(num_streams * sizeof(cudaStream_t));
+  for (int i = 0; i < num_streams; i++)
+    cudaStreamCreate(&(pStreams[i]));
 
   for(alpha=alpha_max;alpha>=alpha_min;alpha-=alpha_step) {
 
@@ -372,7 +375,6 @@ int main(int argc, char * argv[])
   //--------------------------------------------------------------
   for (nb=0,nbtestedframes=0;nb<NbMonteCarlo;nb++)
   {
-  
   //encoding
   for (k=0;k<rank;k++) U[k]=0;
 	for (k=rank;k<N;k++) U[k]=floor(drand48()*2);
@@ -384,50 +386,35 @@ int main(int argc, char * argv[])
 
   // Add Noise
   for (n=0;n<N;n++)  if (drand48()<alpha) Receivedword[n]=1-Codeword[n]; else Receivedword[n]=Codeword[n];
-	
   //============================================================================
  	// Decoder
 	//============================================================================
   cudaEventRecord(astartEvent, 0);
-  if(argc == 3){ //parallel
-    // Clear CtoV
-    // for (k=0;k<NbBranch;k++) {CtoV[k]=0;} // CAN WE SKIP THIS IF WE ENSURE TO SET ALL VALUES in CtoV b4 processing via syncThread()? 
-    // cudaMemset(device_CtoV, 0, N * sizeof(int));
-    const int code_word_size = 8 * sizeof(int);
-    for (int stream_iter = 0; stream_iter < (N * sizeof(int)); stream_iter += code_word_size*2)
+  if(argc == 4){ //parallel
+    //printf("decoding\n");
+    for (int stream_cnt = 0; stream_cnt < num_streams; stream_cnt++)
     {
       // Copy Received Word to the GPU
-      //cudaMemcpy(device_Decide, Receivedword, N * sizeof(int), cudaMemcpyHostToDevice);
-      //cudaMemcpy(device_Receivedword, Receivedword, N * sizeof(int), cudaMemcpyHostToDevice);
-      // Stream 1
-      //TODO: we're only copying over stream amount worth of data but kernel is being launched with everything else that's
-      //      more than a stream amount of data
-      cudaMemcpyAsync(device_Decide, Receivedword+stream_iter, code_word_size * sizeof(int), cudaMemcpyHostToDevice);
-      cudaMemcpyAsync(device_Receivedword, Receivedword+stream_iter, code_word_size * sizeof(int), cudaMemcpyHostToDevice);
-      // Stream 2
-      cudaMemcpyAsync(device_Decide, Receivedword+stream_iter+code_word_size, code_word_size * sizeof(int), cudaMemcpyHostToDevice);
-      cudaMemcpyAsync(device_Receivedword, Receivedword+stream_iter+code_word_size, code_word_size * sizeof(int), cudaMemcpyHostToDevice);
-
+      cudaMemcpyAsync(device_Decide, Receivedword/*+(code_word_size*stream_cnt)*/, code_word_size * sizeof(int), cudaMemcpyHostToDevice, pStreams[stream_cnt]);
+      cudaMemcpyAsync(device_Receivedword, Receivedword/*+(code_word_size*stream_cnt)*/, code_word_size * sizeof(int), cudaMemcpyHostToDevice, pStreams[stream_cnt]);
+    }
+    for (int stream_cnt = 0; stream_cnt < num_streams; stream_cnt++)
+    {
       for (iter=0;iter<NbIter;iter++)
       {
         // Reset IsCodeword
-        cudaMemset(device_IsCodeword, 1, sizeof(int));
+        cudaMemsetAsync(device_IsCodeword, 1, sizeof(int), pStreams[stream_cnt]);
         // Call Decode
-        global_decode<<<gridDim,blockDim>>>(device_VtoC,device_CtoV,device_Mat,device_RowDegree,device_ColumnDegree,
+        global_decode<<<gridDim,blockDim,0,pStreams[stream_cnt]>>>(device_VtoC,device_CtoV,device_Mat,device_RowDegree,device_ColumnDegree,
                                             device_Decide,device_Receivedword,device_Interleaver,M,N,
                                             device_numBrow,device_numBcol,iter,device_IsCodeword);
         //Retreive IsCodeWord
-        cudaMemcpy(&IsCodeword,device_IsCodeword, sizeof(int), cudaMemcpyDeviceToHost);
+        cudaMemcpyAsync(&IsCodeword,device_IsCodeword, sizeof(int), cudaMemcpyDeviceToHost,pStreams[stream_cnt]);
         if (IsCodeword)
           break;
       }
-
-      // Get Decide array back from CPU
-      //cudaMemcpy(Decide, device_Decide, N * sizeof(int), cudaMemcpyDeviceToHost);
       // Stream 1
-      cudaMemcpyAsync(Decide, device_Decide+stream_iter, code_word_size * sizeof(int), cudaMemcpyDeviceToHost);
-      // Stream 2
-      cudaMemcpyAsync(Decide, device_Decide+stream_iter+code_word_size, code_word_size * sizeof(int), cudaMemcpyDeviceToHost);
+      cudaMemcpyAsync(Decide, device_Decide/*+(code_word_size*stream_cnt)*/, code_word_size * sizeof(int), cudaMemcpyDeviceToHost,pStreams[stream_cnt]);
     }
   }
   else{ //serial
@@ -458,7 +445,6 @@ int main(int argc, char * argv[])
   cudaEventSynchronize(astopEvent);
   cudaEventElapsedTime(&aelapsedTime, astartEvent, astopEvent);
   timeAverage += aelapsedTime;
-
 	//============================================================================
   	// Compute Statistics
 	//============================================================================
@@ -509,8 +495,9 @@ int main(int argc, char * argv[])
 
 }
 
-cudaStreamDestroy(stream1);
-cudaStreamDestroy(stream2);
+for (int i = 0; i < num_streams; i++)
+  cudaStreamDestroy(pStreams[i]);
+free(pStreams);
 
 // Free up GPU memory
 cudaFree(device_Mat);
