@@ -159,7 +159,7 @@ int main(int argc, char * argv[])
 {
   // Variables Declaration
   FILE *f;
-  int Graine,NbIter,nbtestedframes,NBframes;
+  int Graine,NbIter,nbtestedframes,NBframes,parallelFlag;
   float alpha_max, alpha_min,alpha_step,alpha,NbMonteCarlo;
   // ----------------------------------------------------
   // lecture des param de la ligne de commande
@@ -175,6 +175,21 @@ int main(int argc, char * argv[])
   //--------------Simulation input for GaB BF-------------------------
   NbMonteCarlo=100000000000;	    // Maximum nb of codewords sent
   NbIter=100; 	            // Maximum nb of iterations
+  parallelFlag=0;
+  if(argc == 5){
+    NbIter = atoi(argv[4]);
+  }
+  if(argc > 3){
+    parallelFlag = atoi(argv[3]);
+  }
+
+  if(parallelFlag){
+    printf("Running GaB Decoder on GPU | Max Iter = %d\n", NbIter);
+  }
+  else{
+    printf("Running GaB Decoder on CPU | Max Iter = %d\n", NbIter);
+  }
+
   alpha= 0.01;              // Channel probability of error
   NBframes=100;	            // Simulation stops when NBframes in error
   Graine=1;		            // Seed Initialization for Multiple Simulations
@@ -384,7 +399,7 @@ int main(int argc, char * argv[])
  	// Decoder
 	//============================================================================
   cudaEventRecord(astartEvent, 0);
-  if(argc == 3){ //parallel
+  if(parallelFlag){ //parallel
     // Clear CtoV
     // for (k=0;k<NbBranch;k++) {CtoV[k]=0;} // CAN WE SKIP THIS IF WE ENSURE TO SET ALL VALUES in CtoV b4 processing via syncThread()? 
     // cudaMemset(device_CtoV, 0, N * sizeof(int));

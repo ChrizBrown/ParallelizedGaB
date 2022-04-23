@@ -16,4 +16,5 @@ cmake ..
 make
 
 # And here is an example:
-./GaB ../datasets/IRISC_dv4_R050_L54_N1296_Dform IRISC_dv4_R050_L54_N1296_Dform_Res
+# ./EXEC MATRIX_FILE RESULT_FILE PARALLEL_FLAG TOTAL_ITERATIONS
+./GaB ../datasets/IRISC_dv4_R050_L54_N1296_Dform IRISC_dv4_R050_L54_N1296_Dform_Res 1 1000
