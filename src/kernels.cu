@@ -112,7 +112,6 @@ __global__ void global_decode(int *VtoC,int *CtoV,int** Mat,int* RowDegree,int* 
                               int *numBrow,int *numBcol, int iter, int* isCodeWord){
 
   // int idx = threadIdx.x + blockIdx.x * blockDim.x;
-
   if(iter==0){
     DataPassGBIter0_(VtoC,CtoV,Receivedword,Interleaver,ColumnDegree,N,numBcol);
   }
@@ -129,5 +128,35 @@ __global__ void global_decode(int *VtoC,int *CtoV,int** Mat,int* RowDegree,int* 
 
   if(ComputeSyndrome_(Decide,Mat,RowDegree,M) == 0){
     *isCodeWord = 0;
+  }
+}
+
+__global__ void global_decode_stream(int *VtoC,int *CtoV,int** Mat,int* RowDegree,int* ColumnDegree,
+                              int* Decide,int *Receivedword,int *Interleaver,int M,int N,
+                              int *numBrow,int *numBcol, int iter, int* isCodeWord, int num_codewords, int* stop){
+
+  for (int i = 0; i < num_codewords; i++)
+  {
+    if (stop[i])
+      continue;
+
+    if(iter==0){
+      DataPassGBIter0_(&VtoC[i*N],&CtoV[i*N],&Receivedword[i*N],Interleaver,ColumnDegree,N,numBcol);
+    }
+    else{
+      DataPassGB_(&VtoC[i*N],&CtoV[i*N],&Receivedword[i*N],Interleaver,ColumnDegree,N,numBcol);
+    }
+    __syncthreads();
+    
+    CheckPassGB_(&CtoV[i*N],&VtoC[i*N],M,RowDegree,numBrow);
+    __syncthreads();
+
+    APP_GB_(&Decide[i*N],&CtoV[i*N],&Receivedword[i*N],Interleaver,ColumnDegree,N,M,numBcol);
+    __syncthreads();
+
+    if(ComputeSyndrome_(&Decide[i*N],Mat,RowDegree,M) == 0){
+      isCodeWord[i] = 0;
+    }
+    __syncthreads();
   }
 }
