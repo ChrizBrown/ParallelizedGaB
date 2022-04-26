@@ -17,6 +17,8 @@
 #include <math.h>
 #include <stdio.h>
 #include <unistd.h>
+#include <iostream> 
+#include <chrono>    
 
 #include <cuda_runtime.h>
 #include "kernels.cu"
@@ -324,15 +326,8 @@ int main(int argc, char * argv[])
   cudaMalloc((void **)&device_IsCodeword, sizeof(int));
   
   // Set Up GPU Kernel Dimensions
-  dim3 blockDim(M),gridDim(32);
-
-  // dim3 blockDim,gridDim(32);
-  // if(M > N){
-  //   blockDim = (M/2);
-  // }
-  // else{
-  //   blockDim = (N/2);
-  // }
+  int blockSize = 256;
+  dim3 blockDim(blockSize),gridDim((N/blockSize)+1);
 
   // ----------------------------------------------------
   // Initialize Timing Structures
@@ -342,6 +337,9 @@ int main(int argc, char * argv[])
   cudaEventCreate(&astartEvent);
   cudaEventCreate(&astopEvent);
 
+  std::chrono::_V2::system_clock::time_point start;
+  std::chrono::nanoseconds elapsed;
+  
   // ----------------------------------------------------
   // Gaussian Elimination for the Encoding Matrix (Full Representation)
   // ----------------------------------------------------
@@ -366,10 +364,10 @@ int main(int argc, char * argv[])
   strcpy(FileName,FileResult);
   f=fopen(FileName,"w");
   fprintf(f,"-------------------------Gallager B--------------------------------------------------\n");
-  fprintf(f,"alpha\t\tNbEr(BER)\t\tNbFer(FER)\t\tNbtested\t\tIterAver(Itermax)\t\tNbUndec(Dmin)\t\tTimePerFrame\n");
+  fprintf(f,"alpha\t\tNbEr(BER)\t\tNbFer(FER)\t\tNbtested\t\tIterAver(Itermax)\t\tNbUndec(Dmin)\t\tTimePerFrame(us)\n");
 
   printf("-------------------------Gallager B--------------------------------------------------\n");
-  printf("alpha\t\tNbEr(BER)\t\tNbFer(FER)\t\tNbtested\t\tIterAver(Itermax)\t\tNbUndec(Dmin)\t\tTimePerFrame\n");
+  printf("alpha\t\t\tNbEr(BER)\t\t\t\tNbFer(FER)\t\t\t  Nbtested\t\tIterAver(Itermax)\tNbUndec(Dmin)\t\tTimePerFrame(ms)\tTotalTime(s)\n");
 
 
   for(alpha=alpha_max;alpha>=alpha_min;alpha-=alpha_step) {
@@ -398,8 +396,8 @@ int main(int argc, char * argv[])
   //============================================================================
  	// Decoder
 	//============================================================================
-  cudaEventRecord(astartEvent, 0);
   if(parallelFlag){ //parallel
+    cudaEventRecord(astartEvent, 0);
     // Clear CtoV
     // for (k=0;k<NbBranch;k++) {CtoV[k]=0;} // CAN WE SKIP THIS IF WE ENSURE TO SET ALL VALUES in CtoV b4 processing via syncThread()? 
     // cudaMemset(device_CtoV, 0, N * sizeof(int));
@@ -426,6 +424,7 @@ int main(int argc, char * argv[])
     cudaMemcpy(Decide, device_Decide, N * sizeof(int), cudaMemcpyDeviceToHost);
   }
   else{ //serial
+    start = std::chrono::high_resolution_clock::now();
     // REPLACE THE CODE BELOW WITH CUDA KERNEL CALLS -------------------------------------------------
     for (k=0;k<NbBranch;k++) {CtoV[k]=0;}
 
@@ -449,10 +448,20 @@ int main(int argc, char * argv[])
     }
     // -----------------------------------------------------------------------------------------------
   }
-  cudaEventRecord(astopEvent, 0);
-  cudaEventSynchronize(astopEvent);
-  cudaEventElapsedTime(&aelapsedTime, astartEvent, astopEvent);
-  timeAverage += aelapsedTime;
+  
+  if(parallelFlag){
+    cudaDeviceSynchronize();
+    cudaEventRecord(astopEvent, 0);
+    cudaEventSynchronize(astopEvent);
+    cudaEventElapsedTime(&aelapsedTime, astartEvent, astopEvent);
+    timeAverage += aelapsedTime; // ms
+    aelapsedTime = 0.0;
+  }
+  else{
+    elapsed = std::chrono::high_resolution_clock::now() - start;
+    timeAverage += 1.0*((std::chrono::duration_cast< std::chrono::milliseconds >(elapsed)).count()); //ms
+  }
+  
 
 	//============================================================================
   	// Compute Statistics
@@ -491,8 +500,8 @@ int main(int argc, char * argv[])
   printf("%10d\t\t",nbtestedframes);
   printf("%1.2f(%d)\t\t",(float)NiterMoy/nbtestedframes,NiterMax);
   printf("%d(%d)\t\t",NbUnDetectedErrors,Dmin);
-  printf("%f\n",timeAveragePerNb);
-
+  printf("%f\t\t",timeAveragePerNb);
+  printf("%f\n", 1e-3*timeAverage);
 
   fprintf(f,"%1.5f\t\t",alpha);
   fprintf(f,"%10d (%1.8f)\t\t",NbBitError,(float)NbBitError/N/nbtestedframes);

@@ -17,6 +17,8 @@
 #include <math.h>
 #include <stdio.h>
 #include <unistd.h>
+#include <iostream> 
+#include <chrono>    
 
 #include <cuda_runtime.h>
 #include "kernels.cu"
@@ -29,81 +31,6 @@
 #define BPSK(x) (1-2*(x))
 #define PI 3.1415926536
 
-
-//#####################################################################################################
-void DataPassGB(int *VtoC,int *CtoV,int *Receivedword,int *Interleaver,int *ColumnDegree,int N,int* numBcol)
-{
-	int t,numB,n,buf;
-	int Global;
-	numB=0;
-	for (n=0;n<N;n++)
-	{
-		//Global=(Amplitude)*(1-2*ReceivedSymbol[n]);
-		Global=(1-2*Receivedword[n]); 
-		//Global=(1-2*(Decide[n] + Receivedword[n])); //Decide[n]^Receivedword[n];
-		for (t=0;t<ColumnDegree[n];t++) Global+=(-2)*CtoV[Interleaver[numB+t]]+1;
-
-		for (t=0;t<ColumnDegree[n];t++)
-		{
-		  buf=Global-((-2)*CtoV[Interleaver[numB+t]]+1);
-		  if (buf<0)  VtoC[Interleaver[numB+t]]= 1; //else VtoC[Interleaver[numB+t]]= 1;
-		  else if (buf>0) VtoC[Interleaver[numB+t]]= 0; //else VtoC[Interleaver[numB+t]]= 1;
-		  else  VtoC[Interleaver[numB+t]]=Receivedword[n];
-		}
-		numB=numB+ColumnDegree[n];
-	}
-}
-//#####################################################################################################
-void DataPassGBIter0(int *VtoC,int *CtoV,int *Receivedword,int *Interleaver,int *ColumnDegree,int N,int* numBcol)
-{
-	int t,numB,n;
-	numB=0;
-	for (n=0;n<N;n++)
-	{
-		for (t=0;t<ColumnDegree[n];t++)     VtoC[Interleaver[numB+t]]=Receivedword[n];
-		numB=numB+ColumnDegree[n];
-	}
-}
-//##################################################################################################
-void CheckPassGB(int *CtoV,int *VtoC,int M,int* numBrow,int *RowDegree)
-{
-   int t,numB=0,m,signe;
-   for (m=0;m<M;m++)
-   {
-		signe=0;for (t=0;t<RowDegree[m];t++) signe^=VtoC[numB+t];
-	    for (t=0;t<RowDegree[m];t++) 	CtoV[numB+t]=signe^VtoC[numB+t];
-		numB=numB+RowDegree[m];
-   }
-}
-//#####################################################################################################
-void APP_GB(int *Decide,int *CtoV,int *Receivedword,int *Interleaver,int *ColumnDegree,int N,int M,int* numBcol)
-{
-   	int t,numB,n;
-	int Global;
-	numB=0;
-	for (n=0;n<N;n++)
-	{
-		Global=(1-2*Receivedword[n]);
-		for (t=0;t<ColumnDegree[n];t++) Global+=(-2)*CtoV[Interleaver[numB+t]]+1;
-        if(Global>0) Decide[n]= 0;
-        else if (Global<0) Decide[n]= 1;
-        else  Decide[n]=Receivedword[n];
-		numB=numB+ColumnDegree[n];
-	}
-}
-//#####################################################################################################
-int ComputeSyndrome(int *Decide,int **Mat,int *RowDegree,int M)
-{
-	int Synd,k,l;
-
-	for (k=0;k<M;k++)
-	{
-		Synd=0;
-		for (l=0;l<RowDegree[k];l++) Synd=Synd^Decide[Mat[k][l]];
-		if (Synd==1) break;
-	}
-	return(1-Synd);
-}
 //#####################################################################################################
 int GaussianElimination_MRB(int *Perm,int **MatOut,int **Mat,int M,int N)
 {
@@ -159,7 +86,7 @@ int main(int argc, char * argv[])
 {
   // Variables Declaration
   FILE *f;
-  int Graine,NbIter,nbtestedframes,NBframes;
+  int Graine,NbIter,nbtestedframes,NBframes,batchSize;
   float alpha_max, alpha_min,alpha_step,alpha,NbMonteCarlo;
   // ----------------------------------------------------
   // lecture des param de la ligne de commande
@@ -175,6 +102,16 @@ int main(int argc, char * argv[])
   //--------------Simulation input for GaB BF-------------------------
   NbMonteCarlo=100000000000;	    // Maximum nb of codewords sent
   NbIter=100; 	            // Maximum nb of iterations
+  batchSize=1;
+  if(argc == 5){
+    NbIter = atoi(argv[4]);
+  }
+  if(argc > 3){
+    batchSize = atoi(argv[3]);
+  }
+
+  printf("Running Batched GaB Decoder on GPU | Max Iter = %d | Batch Size = %d\n", NbIter, batchSize);
+  
   alpha= 0.01;              // Channel probability of error
   NBframes=100;	            // Simulation stops when NBframes in error
   Graine=1;		            // Seed Initialization for Multiple Simulations
@@ -220,12 +157,11 @@ int main(int argc, char * argv[])
   // ----------------------------------------------------
   // Decoder
   // ----------------------------------------------------
-  int /**CtoV,*VtoC,*/*Codeword,/**Receivedword,*/*U,l,*numBrow,*numBcol;
+  int *Codeword,*Receivedword,*Decide,*U,l,*numBrow,*numBcol;
   int iter;
-  //CtoV=(int *)calloc(NbBranch,sizeof(int));
-  //VtoC=(int *)calloc(NbBranch,sizeof(int));
-  Codeword=(int *)calloc(N,sizeof(int));
-  //Receivedword=(int *)calloc(N,sizeof(int));
+  Codeword=(int *)calloc(batchSize*N,sizeof(int));
+  Receivedword=(int *)calloc(batchSize*N,sizeof(int));
+  Decide=(int *)calloc(batchSize*N,sizeof(int));
   U=(int *)calloc(N,sizeof(int));
   srand48(time(0)+Graine*31+113);
 
@@ -260,7 +196,7 @@ int main(int argc, char * argv[])
   // Allocate and fill GPU Data for Matrix and Decoder
   // ----------------------------------------------------
   int *device_ColumnDegree,*device_RowDegree,**device_Mat,*device_Interleaver,*device_numBrow,*device_numBcol;
- 
+  
   // Initialize and Fill Matrix and Degree Arrays on Device (Should never be modified)
   cudaMalloc((void **)&device_Mat, M * sizeof(int*));
   int** temp_i_ptrs = (int**) malloc(M * sizeof(int*));
@@ -287,23 +223,40 @@ int main(int argc, char * argv[])
   cudaMalloc((void **)&device_numBcol, N * sizeof(int));
   cudaMemcpy(device_numBcol, numBcol, N * sizeof(int), cudaMemcpyHostToDevice);
 
-  int *device_Codeword;
+  int *device_CtoV,*device_VtoC,*device_Codeword,*device_Receivedword,*device_Decide,*device_IsCodeword;
 
   // Initialize GaB node connections and Codeword Arrays on Device
-  const int code_word_size = N;//8 * sizeof(int);
-  cudaMalloc((void **)&device_Codeword, N * sizeof(int*));
-  cudaMemset((void **)&device_Codeword, 0, N * sizeof(int*));  
+  cudaMalloc((void **)&device_CtoV, batchSize * NbBranch * sizeof(int));
+  cudaMemset((void **)&device_CtoV, 0, batchSize * NbBranch * sizeof(int));
   
+  cudaMalloc((void **)&device_VtoC, batchSize * NbBranch * sizeof(int));
+  cudaMemset((void **)&device_VtoC, 0, batchSize * NbBranch * sizeof(int));
+  
+  cudaMalloc((void **)&device_Codeword, batchSize * N * sizeof(int));
+  cudaMemset((void **)&device_Codeword, 0, batchSize * N * sizeof(int));  
+  
+  cudaMalloc((void **)&device_Receivedword, batchSize * N * sizeof(int));
+  cudaMemset((void **)&device_Receivedword, 0, batchSize * N * sizeof(int));   
+  
+  cudaMalloc((void **)&device_Decide, batchSize * N * sizeof(int));
+  cudaMemset((void **)&device_Decide, 0, batchSize * N * sizeof(int));   
+
+  cudaMalloc((void **)&device_IsCodeword, batchSize * sizeof(int));
+
+  //Batch Mods
+  int* IsCodeword,*IsCodewordReset,*iters;
+
+  IsCodeword=(int *)calloc(batchSize,sizeof(int));
+  IsCodewordReset=(int *)calloc(batchSize,sizeof(int));
+  for(int i=0;i<batchSize;i++){IsCodewordReset[i]=1;}
+  iters=(int *)calloc(batchSize,sizeof(int));
+  for(int i=0;i<batchSize;i++){iters[i]=100;}
+
+
   
   // Set Up GPU Kernel Dimensions
-  dim3 blockDim(M),gridDim(32,32);
-  // dim3 blockDim,gridDim(32);
-  // if(M > N){
-  //   blockDim = (M/2);
-  // }
-  // else{
-  //   blockDim = (N/2);
-  // }
+  int blockSize = 256;
+  dim3 blockDim(blockSize),gridDim((N/blockSize)+1);
 
   // ----------------------------------------------------
   // Initialize Timing Structures
@@ -313,6 +266,9 @@ int main(int argc, char * argv[])
   cudaEventCreate(&astartEvent);
   cudaEventCreate(&astopEvent);
 
+  std::chrono::_V2::system_clock::time_point start;
+  std::chrono::nanoseconds elapsed;
+  
   // ----------------------------------------------------
   // Gaussian Elimination for the Encoding Matrix (Full Representation)
   // ----------------------------------------------------
@@ -337,53 +293,12 @@ int main(int argc, char * argv[])
   strcpy(FileName,FileResult);
   f=fopen(FileName,"w");
   fprintf(f,"-------------------------Gallager B--------------------------------------------------\n");
-  fprintf(f,"alpha\t\tNbEr(BER)\t\tNbFer(FER)\t\tNbtested\t\tIterAver(Itermax)\t\tNbUndec(Dmin)\t\tTimePerFrame\n");
+  fprintf(f,"alpha\t\tNbEr(BER)\t\tNbFer(FER)\t\tNbtested\t\tIterAver(Itermax)\t\tNbUndec(Dmin)\t\tTimePerFrame(us)\n");
 
   printf("-------------------------Gallager B--------------------------------------------------\n");
-  printf("alpha\t\tNbEr(BER)\t\tNbFer(FER)\t\tNbtested\t\tIterAver(Itermax)\t\tNbUndec(Dmin)\t\tTimePerFrame\n");
-
-  // Set up CUDA stream objects
-  char* temp;
-  const int num_streams = strtol(argv[3],&temp,10);
-  printf("Creating %d streams\n",num_streams);
-  cudaStream_t* pStreams = (cudaStream_t*)malloc(num_streams * sizeof(cudaStream_t));
-  for (int i = 0; i < num_streams; i++)
-    cudaStreamCreate(&(pStreams[i]));
-  
-
-  const int num_codewords = strtol(argv[4],&temp,10);
-  printf("Sending %d codewords\n",num_codewords);
-
-int *device_CtoV,*device_VtoC;
-  cudaMalloc((void **)&device_CtoV, num_codewords*NbBranch * sizeof(int));
-  cudaMemset((void **)&device_CtoV, 0, num_codewords*NbBranch * sizeof(int));
-  
-  cudaMalloc((void **)&device_VtoC, num_codewords*NbBranch * sizeof(int));
-  cudaMemset((void **)&device_VtoC, 0, num_codewords*NbBranch * sizeof(int));
-  
+  printf("alpha\t\t\tNbEr(BER)\t\t\t\tNbFer(FER)\t\t\t  Nbtested\t\tIterAver(Itermax)\tNbUndec(Dmin)\t\tTimePerFrame(ms)\tTotalTime(s)\n");
 
 
-  // Set up our matrix of multiple codewords
-  int* codewords;
-  codewords = (int*)malloc(num_codewords * code_word_size * sizeof(int));
-
-  int* IsCodeword = (int*)malloc(num_codewords*sizeof(int));
-  int* device_IsCodeword;
-  cudaMalloc((void **)&device_IsCodeword, num_codewords*sizeof(int));
-
-  int* device_Receivedword;
-  int* device_Decide;
-
-  cudaMalloc((void**)&device_Receivedword,num_codewords*code_word_size*sizeof(int)+1);
-  cudaMalloc((void**)&device_Decide,num_codewords*code_word_size*sizeof(int)+1);
-    
-  int* time_to_stop = (int*)calloc(num_codewords,sizeof(int*));
-  int* dev_stop;
-  cudaMalloc((void**)&dev_stop,num_codewords*sizeof(int*));
-
-  int* Decide=(int *)calloc(N,sizeof(int));
-
- 
   for(alpha=alpha_max;alpha>=alpha_min;alpha-=alpha_step) {
 
   NiterMoy=0;NiterMax=0;
@@ -392,113 +307,112 @@ int *device_CtoV,*device_VtoC;
   NbUnDetectedErrors=0;NbError=0;
   timeAverage=0.0;
   //--------------------------------------------------------------
-  for (nb=0,nbtestedframes=0;nb<NbMonteCarlo;nb++)
+  for (nb=0,nbtestedframes=0;nb<NbMonteCarlo;nb+=batchSize)
   {
-  for (int i = 0; i < num_codewords; i++)
-  {
+  
   //encoding
-  for (k=0;k<rank;k++) U[k]=0;
-	for (k=rank;k<N;k++) U[k]=floor(drand48()*2);
-	for (k=rank-1;k>=0;k--) { for (l=k+1;l<N;l++) U[k]=U[k]^(MatG[k][l]*U[l]); }
-	for (k=0;k<N;k++) Codeword[PermG[k]]=U[k];
+  for(int batchIdx=0; batchIdx<batchSize;batchIdx++){
 
-	// All zero codeword
-	//for (n=0;n<N;n++) { Codeword[n]=0; }
+    for (k=0;k<rank;k++) U[k]=0;
+	  for (k=rank;k<N;k++) U[k]=floor(drand48()*2);
+	  for (k=rank-1;k>=0;k--) { for (l=k+1;l<N;l++) U[k]=U[k]^(MatG[k][l]*U[l]); }
+	  for (k=0;k<N;k++) Codeword[batchIdx*N + PermG[k]]=U[k];
+  
+	  // All zero codeword
+	  //for (n=0;n<N;n++) { Codeword[n]=0; }
 
-  // Add Noise
-  //for (n=0;n<N;n++)  if (drand48()<alpha) Receivedword[n]=1-Codeword[n]; else Receivedword[n]=Codeword[n];
-  for (n=0;n<N;n++)  if (drand48()<alpha) codewords[n+i*N]=1-Codeword[n]; else codewords[n+i*N]=Codeword[n];
+    // Add Noise
+    for (n=0;n<N;n++)  if (drand48()<alpha) Receivedword[batchIdx*N + n]=1-Codeword[batchIdx*N + n]; else Receivedword[batchIdx*N + n]=Codeword[batchIdx*N + n];
   }
+  
+  for(int i=0;i<batchSize;i++){iters[i]=-1;}
   //============================================================================
  	// Decoder
 	//============================================================================
   cudaEventRecord(astartEvent, 0);
-  if(argc == 5){ //parallel
-    memset(time_to_stop, 0, num_codewords*sizeof(int));
-    //printf("decoding\n");
-    for (int stream_cnt = 0; stream_cnt < num_streams; stream_cnt++)
-    {
-      // Copy Received Word to the GPU
-      for (int i = 0; i < num_codewords; i++)
-      {
-        cudaMemcpyAsync(&device_Decide[i*N], &codewords[i*N],code_word_size * sizeof(int), cudaMemcpyHostToDevice, pStreams[stream_cnt]);
-        cudaMemcpyAsync(&device_Receivedword[i*N], &codewords[i*N], code_word_size * sizeof(int), cudaMemcpyHostToDevice, pStreams[stream_cnt]);
-      }
-    }
-    for (int stream_cnt = 0; stream_cnt < num_streams; stream_cnt++)
-    {
-      for (iter=0;iter<NbIter;iter++)
-      {
-        // Reset IsCodeword
-        int stop = 1;
-        cudaMemcpyAsync(dev_stop, time_to_stop, num_codewords*sizeof(int),cudaMemcpyHostToDevice,pStreams[stream_cnt]);
-        cudaMemsetAsync(device_IsCodeword, 1, num_codewords*sizeof(int), pStreams[stream_cnt]);
-        // Call Decode
-        global_decode_stream<<<gridDim,blockDim,0,pStreams[stream_cnt]>>>(device_VtoC,device_CtoV,device_Mat,device_RowDegree,device_ColumnDegree,
-                                            device_Decide,device_Receivedword,device_Interleaver,M,N,
-                                            device_numBrow,device_numBcol,iter,device_IsCodeword,num_codewords,dev_stop);
-        //Retreive IsCodeWord
-        cudaMemcpyAsync(IsCodeword,device_IsCodeword, num_codewords*sizeof(int), cudaMemcpyDeviceToHost,pStreams[stream_cnt]);
-        cudaMemcpyAsync(time_to_stop,dev_stop,num_codewords*sizeof(int),cudaMemcpyDeviceToHost,pStreams[stream_cnt]);
-        for (int i = 0; i < num_codewords; i++)
-        {
-          if (IsCodeword[i] && !time_to_stop[i])
-          {
-            time_to_stop[i] = 1;
-          }
-          stop &= time_to_stop[i];
-        }
-        if (stop)
-        {
-          break;
+  // Clear CtoV
+  // for (k=0;k<NbBranch;k++) {CtoV[k]=0;} // CAN WE SKIP THIS IF WE ENSURE TO SET ALL VALUES in CtoV b4 processing via syncThread()? 
+  // cudaMemset(device_CtoV, 0, N * sizeof(int));
+
+  // Copy Received Word to the GPU
+  cudaMemcpy(device_Decide, Receivedword, batchSize * N * sizeof(int), cudaMemcpyHostToDevice);
+  cudaMemcpy(device_Receivedword, Receivedword, batchSize * N * sizeof(int), cudaMemcpyHostToDevice);
+
+  for (iter=0;iter<NbIter;iter++){
+    // Reset IsCodeword
+    cudaMemcpy(device_IsCodeword, IsCodewordReset, batchSize * sizeof(int), cudaMemcpyHostToDevice);
+    // Call Decode
+    global_decode_batched<<<gridDim,blockDim>>>(device_VtoC,device_CtoV,device_Mat,device_RowDegree,device_ColumnDegree,
+                                          device_Decide,device_Receivedword,device_Interleaver,M,N,
+                                          device_numBrow,device_numBcol,iter,device_IsCodeword,batchSize,NbBranch);
+  
+    //Retreive IsCodeWord
+    cudaMemcpy(IsCodeword,device_IsCodeword, batchSize * sizeof(int), cudaMemcpyDeviceToHost);
+    // std::cout << "IsCodeWord = [ " << IsCodeword[0] << " " << IsCodeword[1] << " " << IsCodeword[2] << " ]" << std::endl;
+
+    bool allgood = true;
+    for(int batchIdx=0; batchIdx<batchSize;batchIdx++){
+      if (IsCodeword[batchIdx]){
+        if(iter == -1){
+          iters[batchIdx] = iter;
         }
       }
-      // Stream 1
-      cudaMemcpyAsync(Decide, device_Decide, num_codewords*code_word_size * sizeof(int), cudaMemcpyDeviceToHost,pStreams[stream_cnt]);
+      else{
+        allgood = false;
+      }  
     }
+    if(allgood){break;}
   }
+
+  // Get Decide array back from CPU
+  cudaMemcpy(Decide, device_Decide, batchSize * N * sizeof(int), cudaMemcpyDeviceToHost);
+  
+  cudaDeviceSynchronize();
   cudaEventRecord(astopEvent, 0);
   cudaEventSynchronize(astopEvent);
   cudaEventElapsedTime(&aelapsedTime, astartEvent, astopEvent);
-  timeAverage += aelapsedTime;
+  timeAverage += aelapsedTime; // ms
+  aelapsedTime = 0.0;
+  
+
 	//============================================================================
   	// Compute Statistics
 	//============================================================================
-  nbtestedframes++;
-	NbError=0;
 
-  for (k=0;k<N;k++)  if (Decide[k]!=Codeword[k]) NbError++;
-  NbBitError=NbBitError+NbError;
-	
-  // Case Divergence
-	for (int i =0; i < num_codewords; i++)
-  {
-    if (!IsCodeword[i])
+  for(int batchIdx=0; batchIdx<batchSize;batchIdx++){
+    if(iters[batchIdx] == -1){iters[batchIdx] = 99;}
+    // std::cout << "iter = " << iters[batchIdx] << std::endl;
+    int batchOffset = batchIdx*N;
+    nbtestedframes++;
+  	NbError=0;for (k=0;k<N;k++)  if (Decide[batchOffset + k]!=Codeword[batchOffset + k]) NbError++;
+    NbBitError=NbBitError+NbError;
+
+    // std::cout << "num bit errors for this frame  at batch idx = " << batchIdx << "  is  " << NbError << std::endl;
+    
+    // Case Divergence
+    if (!IsCodeword[batchIdx])
     {
       NiterMoy=NiterMoy+NbIter;
       NbTotalErrors++;
     }
-  }
-	
-  // Case Convergence to Right Codeword
-	for (int i = 0; i < num_codewords; i++)
-  {
-    if ((IsCodeword[i])&&(NbError==0)) { NiterMax=max(NiterMax,iter+1); NiterMoy=NiterMoy+(iter+1); }
-  }
-	
-  // Case Convergence to Wrong Codeword
-	for (int i = 0; i < num_codewords; i++)
-  {
-    if ((IsCodeword[i])&&(NbError!=0))
+    
+    // Case Convergence to Right Codeword
+    if ((IsCodeword[batchIdx])&&(NbError==0)) { NiterMax=max(NiterMax,iters[batchIdx]+1); NiterMoy=NiterMoy+(iters[batchIdx]+1); }
+    
+    // Case Convergence to Wrong Codeword
+    if ((IsCodeword[batchIdx])&&(NbError!=0))
     {
-      NiterMax=max(NiterMax,iter+1); NiterMoy=NiterMoy+(iter+1);
+      NiterMax=max(NiterMax,iters[batchIdx]+1); NiterMoy=NiterMoy+(iters[batchIdx]+1);
       NbTotalErrors++; NbUnDetectedErrors++;
-      Dmin=min(Dmin,NbError);
-    }
+	    Dmin=min(Dmin,NbError);
+	  }
+
   }
 
 	// Stopping Criterion
-	if (NbTotalErrors==NBframes) break;
+	if (NbTotalErrors>=NBframes) break;
+
+
   }
 
   float timeAveragePerNb = timeAverage/nbtestedframes;
@@ -509,8 +423,8 @@ int *device_CtoV,*device_VtoC;
   printf("%10d\t\t",nbtestedframes);
   printf("%1.2f(%d)\t\t",(float)NiterMoy/nbtestedframes,NiterMax);
   printf("%d(%d)\t\t",NbUnDetectedErrors,Dmin);
-  printf("%f\n",timeAveragePerNb);
-
+  printf("%f\t\t",timeAveragePerNb);
+  printf("%f\n", 1e-3*timeAverage);
 
   fprintf(f,"%1.5f\t\t",alpha);
   fprintf(f,"%10d (%1.8f)\t\t",NbBitError,(float)NbBitError/N/nbtestedframes);
@@ -521,13 +435,6 @@ int *device_CtoV,*device_VtoC;
   fprintf(f,"%f\n",timeAveragePerNb);
 
 }
-
-for (int i = 0; i < num_streams; i++)
-  cudaStreamDestroy(pStreams[i]);
-free(pStreams);
-free(codewords);
-free(IsCodeword);
-free(time_to_stop);
 
 // Free up GPU memory
 cudaFree(device_Mat);
@@ -543,7 +450,6 @@ cudaFree(device_Receivedword);
 cudaFree(device_Decide);
 cudaFree(device_IsCodeword);
 
-cudaFree(dev_stop);
 fclose(f);
 return(0);
 }

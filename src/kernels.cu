@@ -131,6 +131,54 @@ __global__ void global_decode(int *VtoC,int *CtoV,int** Mat,int* RowDegree,int* 
   }
 }
 
+__global__ void global_decode_batched(int *VtoC,int *CtoV,int** Mat,int* RowDegree,int* ColumnDegree,
+                              int* Decide,int *Receivedword,int *Interleaver,int M,int N,
+                              int *numBrow,int *numBcol, int iter, int* isCodeWord, int batchSize, int NbBranch){                          
+
+  // int idx = threadIdx.x + blockIdx.x * blockDim.x;
+  for(int batchIdx=0;batchIdx<batchSize;batchIdx++){
+    int batchDataOffset     = batchIdx*N;
+    int batchRelationOffset = batchIdx*NbBranch;
+
+    if(iter==0){
+      DataPassGBIter0_(VtoC+batchRelationOffset,CtoV+batchRelationOffset,Receivedword+batchDataOffset,Interleaver,ColumnDegree,N,numBcol);
+    }
+    else{
+      DataPassGB_(VtoC+batchRelationOffset,CtoV+batchRelationOffset,Receivedword+batchDataOffset,Interleaver,ColumnDegree,N,numBcol);
+    }
+  // }
+
+  __syncthreads();
+
+  // for(int batchIdx=0;batchIdx<batchSize;batchIdx++){
+  //   int batchRelationOffset = batchIdx*NbBranch;
+    CheckPassGB_(CtoV+batchRelationOffset,VtoC+batchRelationOffset,M,RowDegree,numBrow);
+  // }
+
+  __syncthreads();
+
+  // for(int batchIdx=0;batchIdx<batchSize;batchIdx++){
+  //   int batchDataOffset     = batchIdx*N;
+  //   int batchRelationOffset = batchIdx*NbBranch;
+    APP_GB_(Decide+batchDataOffset,CtoV+batchRelationOffset,Receivedword+batchDataOffset,Interleaver,ColumnDegree,N,M,numBcol);
+  // }
+
+  __syncthreads();  
+
+  // for(int batchIdx=0;batchIdx<batchSize;batchIdx++){
+  //   int batchDataOffset     = batchIdx*N;
+    if(ComputeSyndrome_(Decide+batchDataOffset,Mat,RowDegree,M) == 0){
+      isCodeWord[batchIdx] = 0;
+    }
+    // else{
+    //   if(batchIdx != batchSize-1){printf("WHAT IS GOING ON\n");}
+    // }
+  }
+}
+
+
+
+
 __global__ void global_decode_stream(int *VtoC,int *CtoV,int** Mat,int* RowDegree,int* ColumnDegree,
                               int* Decide,int *Receivedword,int *Interleaver,int M,int N,
                               int *numBrow,int *numBcol, int iter, int* isCodeWord, int num_codewords, int* stop){
