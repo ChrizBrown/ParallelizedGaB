@@ -244,13 +244,15 @@ int main(int argc, char * argv[])
   cudaMalloc((void **)&device_IsCodeword, batchSize * sizeof(int));
 
   //Batch Mods
-  int* IsCodeword,*IsCodewordReset,*iters;
+  int *IsCodeword,*IsCodewordReset,*iters;
+  float *times;
 
   IsCodeword=(int *)calloc(batchSize,sizeof(int));
   IsCodewordReset=(int *)calloc(batchSize,sizeof(int));
   for(int i=0;i<batchSize;i++){IsCodewordReset[i]=1;}
   iters=(int *)calloc(batchSize,sizeof(int));
-  for(int i=0;i<batchSize;i++){iters[i]=100;}
+  times=(float *)calloc(batchSize,sizeof(float));
+  for(int i=0;i<batchSize;i++){iters[i]=99;times[i]=-1.0;}
 
 
   
@@ -325,7 +327,7 @@ int main(int argc, char * argv[])
     for (n=0;n<N;n++)  if (drand48()<alpha) Receivedword[batchIdx*N + n]=1-Codeword[batchIdx*N + n]; else Receivedword[batchIdx*N + n]=Codeword[batchIdx*N + n];
   }
   
-  for(int i=0;i<batchSize;i++){iters[i]=-1;}
+  for(int i=0;i<batchSize;i++){iters[i]=-1;times[i]=-1;}
   //============================================================================
  	// Decoder
 	//============================================================================
@@ -353,8 +355,11 @@ int main(int argc, char * argv[])
     bool allgood = true;
     for(int batchIdx=0; batchIdx<batchSize;batchIdx++){
       if (IsCodeword[batchIdx]){
-        if(iter == -1){
+        if(iters[batchIdx] == -1){
           iters[batchIdx] = iter;
+          cudaEventRecord(astopEvent, 0);
+          cudaEventSynchronize(astopEvent);
+          cudaEventElapsedTime(&times[batchIdx], astartEvent, astopEvent);
         }
       }
       else{
@@ -364,26 +369,43 @@ int main(int argc, char * argv[])
     if(allgood){break;}
   }
 
-  // Get Decide array back from CPU
-  cudaMemcpy(Decide, device_Decide, batchSize * N * sizeof(int), cudaMemcpyDeviceToHost);
-  
-  cudaDeviceSynchronize();
   cudaEventRecord(astopEvent, 0);
   cudaEventSynchronize(astopEvent);
   cudaEventElapsedTime(&aelapsedTime, astartEvent, astopEvent);
-  timeAverage += aelapsedTime; // ms
+
+
+  cudaEventRecord(astartEvent, 0);
+  // Get Decide array back from CPU
+  cudaMemcpy(Decide, device_Decide, batchSize * N * sizeof(int), cudaMemcpyDeviceToHost);
+  cudaDeviceSynchronize();
+  cudaEventRecord(astopEvent, 0);
+  cudaEventSynchronize(astopEvent);
+  float decideTime;
+  cudaEventElapsedTime(&decideTime, astartEvent, astopEvent);
+
+  for(int batchIdx=0; batchIdx<batchSize;batchIdx++){
+    if(iters[batchIdx] == -1){
+      iters[batchIdx] = 99;
+    }
+
+    if(times[batchIdx] == -1.0){
+      times[batchIdx] = aelapsedTime;
+    }
+
+    times[batchIdx] += decideTime/batchSize;
+    timeAverage += times[batchIdx]; //ms
+  }
+
   aelapsedTime = 0.0;
   
-
 	//============================================================================
   	// Compute Statistics
 	//============================================================================
-
+  nbtestedframes+=batchSize;
   for(int batchIdx=0; batchIdx<batchSize;batchIdx++){
-    if(iters[batchIdx] == -1){iters[batchIdx] = 99;}
     // std::cout << "iter = " << iters[batchIdx] << std::endl;
     int batchOffset = batchIdx*N;
-    nbtestedframes++;
+
   	NbError=0;for (k=0;k<N;k++)  if (Decide[batchOffset + k]!=Codeword[batchOffset + k]) NbError++;
     NbBitError=NbBitError+NbError;
 
@@ -392,21 +414,26 @@ int main(int argc, char * argv[])
     // Case Divergence
     if (!IsCodeword[batchIdx])
     {
-      NiterMoy=NiterMoy+NbIter;
+      // NiterMoy=NiterMoy+NbIter;
       NbTotalErrors++;
     }
     
     // Case Convergence to Right Codeword
-    if ((IsCodeword[batchIdx])&&(NbError==0)) { NiterMax=max(NiterMax,iters[batchIdx]+1); NiterMoy=NiterMoy+(iters[batchIdx]+1); }
+    if ((IsCodeword[batchIdx])&&(NbError==0)) {
+       NiterMax=max(NiterMax,iters[batchIdx]+1); 
+      //  NiterMoy=NiterMoy+(iters[batchIdx]+1); 
+    }
     
     // Case Convergence to Wrong Codeword
     if ((IsCodeword[batchIdx])&&(NbError!=0))
     {
-      NiterMax=max(NiterMax,iters[batchIdx]+1); NiterMoy=NiterMoy+(iters[batchIdx]+1);
+      NiterMax=max(NiterMax,iters[batchIdx]+1); 
+      // NiterMoy=NiterMoy+(iters[batchIdx]+1);
       NbTotalErrors++; NbUnDetectedErrors++;
 	    Dmin=min(Dmin,NbError);
 	  }
 
+    NiterMoy+=(iters[batchIdx]+1);
   }
 
 	// Stopping Criterion
@@ -421,7 +448,7 @@ int main(int argc, char * argv[])
   printf("%10d (%1.16f)\t\t",NbBitError,(float)NbBitError/N/nbtestedframes);
   printf("%4d (%1.16f)\t\t",NbTotalErrors,(float)NbTotalErrors/nbtestedframes);
   printf("%10d\t\t",nbtestedframes);
-  printf("%1.2f(%d)\t\t",(float)NiterMoy/nbtestedframes,NiterMax);
+  printf("%1.2f(%d)\t\t",(float)(NiterMoy)/nbtestedframes,NiterMax);
   printf("%d(%d)\t\t",NbUnDetectedErrors,Dmin);
   printf("%f\t\t",timeAveragePerNb);
   printf("%f\n", 1e-3*timeAverage);
