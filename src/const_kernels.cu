@@ -1,3 +1,8 @@
+__constant__ int* device_Interleaver;
+__constant__ int* device_numBrow;
+__constant__ int* device_numBcol;
+__constant__ int** device_Mat;
+
 //#####################################################################################################
 __device__ void DataPassGB_(int *VtoC,int *CtoV,int *Receivedword,int *Interleaver,int *ColumnDegree,int N,int *numB)
 {
