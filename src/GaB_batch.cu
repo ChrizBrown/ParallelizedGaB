@@ -245,14 +245,12 @@ int main(int argc, char * argv[])
 
   //Batch Mods
   int *IsCodeword,*IsCodewordReset,*iters;
-  float *times;
 
   IsCodeword=(int *)calloc(batchSize,sizeof(int));
   IsCodewordReset=(int *)calloc(batchSize,sizeof(int));
   for(int i=0;i<batchSize;i++){IsCodewordReset[i]=1;}
   iters=(int *)calloc(batchSize,sizeof(int));
-  times=(float *)calloc(batchSize,sizeof(float));
-  for(int i=0;i<batchSize;i++){iters[i]=99;times[i]=-1.0;}
+  for(int i=0;i<batchSize;i++){iters[i]=99;}
 
 
   
@@ -267,9 +265,6 @@ int main(int argc, char * argv[])
   float aelapsedTime;
   cudaEventCreate(&astartEvent);
   cudaEventCreate(&astopEvent);
-
-  std::chrono::_V2::system_clock::time_point start;
-  std::chrono::nanoseconds elapsed;
   
   // ----------------------------------------------------
   // Gaussian Elimination for the Encoding Matrix (Full Representation)
@@ -327,7 +322,7 @@ int main(int argc, char * argv[])
     for (n=0;n<N;n++)  if (drand48()<alpha) Receivedword[batchIdx*N + n]=1-Codeword[batchIdx*N + n]; else Receivedword[batchIdx*N + n]=Codeword[batchIdx*N + n];
   }
   
-  for(int i=0;i<batchSize;i++){iters[i]=-1;times[i]=-1;}
+  for(int i=0;i<batchSize;i++){iters[i]=-1;}
   //============================================================================
  	// Decoder
 	//============================================================================
@@ -357,9 +352,6 @@ int main(int argc, char * argv[])
       if (IsCodeword[batchIdx]){
         if(iters[batchIdx] == -1){
           iters[batchIdx] = iter;
-          cudaEventRecord(astopEvent, 0);
-          cudaEventSynchronize(astopEvent);
-          cudaEventElapsedTime(&times[batchIdx], astartEvent, astopEvent);
         }
       }
       else{
@@ -369,47 +361,30 @@ int main(int argc, char * argv[])
     if(allgood){break;}
   }
 
+  // Get Decide array back from CPU
+  cudaMemcpy(Decide, device_Decide, batchSize * N * sizeof(int), cudaMemcpyDeviceToHost);
+
   cudaEventRecord(astopEvent, 0);
   cudaEventSynchronize(astopEvent);
   cudaEventElapsedTime(&aelapsedTime, astartEvent, astopEvent);
-
-
-  cudaEventRecord(astartEvent, 0);
-  // Get Decide array back from CPU
-  cudaMemcpy(Decide, device_Decide, batchSize * N * sizeof(int), cudaMemcpyDeviceToHost);
-  cudaDeviceSynchronize();
-  cudaEventRecord(astopEvent, 0);
-  cudaEventSynchronize(astopEvent);
-  float decideTime;
-  cudaEventElapsedTime(&decideTime, astartEvent, astopEvent);
+  timeAverage += aelapsedTime;
 
   for(int batchIdx=0; batchIdx<batchSize;batchIdx++){
     if(iters[batchIdx] == -1){
       iters[batchIdx] = 99;
     }
-
-    if(times[batchIdx] == -1.0){
-      times[batchIdx] = aelapsedTime;
-    }
-
-    times[batchIdx] += decideTime/batchSize;
-    timeAverage += times[batchIdx]; //ms
   }
-
-  aelapsedTime = 0.0;
   
 	//============================================================================
   	// Compute Statistics
 	//============================================================================
   nbtestedframes+=batchSize;
   for(int batchIdx=0; batchIdx<batchSize;batchIdx++){
-    // std::cout << "iter = " << iters[batchIdx] << std::endl;
+    
     int batchOffset = batchIdx*N;
 
   	NbError=0;for (k=0;k<N;k++)  if (Decide[batchOffset + k]!=Codeword[batchOffset + k]) NbError++;
     NbBitError=NbBitError+NbError;
-
-    // std::cout << "num bit errors for this frame  at batch idx = " << batchIdx << "  is  " << NbError << std::endl;
     
     // Case Divergence
     if (!IsCodeword[batchIdx])
