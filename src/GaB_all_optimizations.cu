@@ -197,8 +197,8 @@ int main(int argc, char * argv[])
   // ----------------------------------------------------
   // Allocate and fill GPU Data for Matrix and Decoder
   // ----------------------------------------------------
-  int *device_ColumnDegree,*device_RowDegree;
-  
+  int* device_Interleaver, **device_Mat; 
+ 
   // Initialize and Fill Matrix and Degree Arrays on Device (Should never be modified)
   cudaMalloc((void **)&device_Mat, M * sizeof(int*));
   int** temp_i_ptrs = (int**) malloc(M * sizeof(int*));
@@ -210,20 +210,24 @@ int main(int argc, char * argv[])
 
   // for(int a=0;a<M;a++){for(int b=0;b<RowDegree[a];b++){printf("%d\n",Mat[a][b]);}}
 
-  cudaMalloc((void **)&device_RowDegree, M * sizeof(int));
-  cudaMemcpy(device_RowDegree, RowDegree, M * sizeof(int), cudaMemcpyHostToDevice);
+  //cudaMalloc((void **)&device_RowDegree, M * sizeof(int));
+  //cudaMemcpy(device_RowDegree, RowDegree, M * sizeof(int), cudaMemcpyHostToDevice);
+  cudaMemcpyToSymbol(device_RowDegree, RowDegree, M*sizeof(int),0,cudaMemcpyHostToDevice);
 
-  cudaMalloc((void **)&device_ColumnDegree, N * sizeof(int));
-  cudaMemcpy(device_ColumnDegree, ColumnDegree, N * sizeof(int), cudaMemcpyHostToDevice);
+  //cudaMalloc((void **)&device_ColumnDegree, N * sizeof(int));
+  //cudaMemcpy(device_ColumnDegree, ColumnDegree, N * sizeof(int), cudaMemcpyHostToDevice);
+  cudaMemcpyToSymbol(device_ColumnDegree, ColumnDegree, N*sizeof(int),0,cudaMemcpyHostToDevice);
 
   cudaMalloc((void **)&device_Interleaver, NbBranch * sizeof(int));
   cudaMemcpy(device_Interleaver, Interleaver, NbBranch * sizeof(int), cudaMemcpyHostToDevice);
 
-  cudaMalloc((void **)&device_numBrow, M * sizeof(int));
-  cudaMemcpy(device_numBrow, numBrow, M * sizeof(int), cudaMemcpyHostToDevice);
+  //cudaMalloc((void **)&device_numBrow, M * sizeof(int));
+  //cudaMemcpy(device_numBrow, numBrow, M * sizeof(int), cudaMemcpyHostToDevice);
+  cudaMemcpyToSymbol(device_numBrow, numBrow, M*sizeof(int),0,cudaMemcpyHostToDevice);
 
-  cudaMalloc((void **)&device_numBcol, N * sizeof(int));
-  cudaMemcpy(device_numBcol, numBcol, N * sizeof(int), cudaMemcpyHostToDevice);
+  //cudaMalloc((void **)&device_numBcol, N * sizeof(int));
+  //cudaMemcpy(device_numBcol, numBcol, N * sizeof(int), cudaMemcpyHostToDevice);
+  cudaMemcpyToSymbol(device_numBcol, numBcol, N*sizeof(int),0,cudaMemcpyHostToDevice);
 
   int *device_CtoV,*device_VtoC,*device_Codeword,*device_Receivedword,*device_Decide,*device_IsCodeword;
 
@@ -354,9 +358,9 @@ int main(int argc, char * argv[])
       // Reset IsCodeword
       cudaMemcpyAsync(device_IsCodeword+code_offset, IsCodewordReset+code_offset, batchSize * sizeof(int), cudaMemcpyHostToDevice, pStreams[stream_cnt]);
       // Call Decode
-      global_decode_batched_stream<<<gridDim,blockDim,0,pStreams[stream_cnt]>>>(device_VtoC,device_CtoV,device_Mat,device_RowDegree,device_ColumnDegree,
+      global_decode_batched_stream_shared<<<gridDim,blockDim,batchSize*num_streams*N*sizeof(int),pStreams[stream_cnt]>>>(device_VtoC,device_CtoV,device_Mat,
                                             device_Decide+offset,device_Receivedword+offset,device_Interleaver,M,N,
-                                            device_numBrow,device_numBcol,iter,device_IsCodeword+code_offset,batchSize,NbBranch);
+                                            iter,device_IsCodeword+code_offset,batchSize,NbBranch);
     
       //Retreive IsCodeWord
       cudaMemcpyAsync(IsCodeword+code_offset, device_IsCodeword+code_offset, batchSize * sizeof(int), cudaMemcpyDeviceToHost, pStreams[stream_cnt]);
@@ -467,11 +471,7 @@ free(pStreams);
 
 // Free up GPU memory
 cudaFree(device_Mat);
-cudaFree(device_RowDegree);
-cudaFree(device_ColumnDegree);
 cudaFree(device_Interleaver);
-cudaFree(device_numBrow);
-cudaFree(device_numBcol);
 cudaFree(device_CtoV);
 cudaFree(device_VtoC);
 cudaFree(device_Codeword);
