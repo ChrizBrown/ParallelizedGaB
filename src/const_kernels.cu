@@ -22,11 +22,8 @@ __device__ void DataPassGB_(int *VtoC,int *CtoV,int *Receivedword,int *Interleav
 		  else  VtoC[Interleaver[device_numBcol[n]+t]]=Receivedword[n];
 		}
   }
-
-  // if(n<N){
-  //   printf("Finished DataPassGB_\n");
-  // }
 }
+
 //#####################################################################################################
 __device__ void DataPassGBIter0_(int *VtoC,int *CtoV,int *Receivedword,int *Interleaver,int N)
 {
@@ -141,6 +138,29 @@ __global__ void global_decode_batched_stream(int *VtoC,int *CtoV,int** Mat,
   }
 }
 
+__global__ void global_decode(int *VtoC,int *CtoV,int** Mat,
+                              int* Decide,int *Receivedword,int *Interleaver,int M,int N,
+                              int iter, int* isCodeWord){
+
+  // int idx = threadIdx.x + blockIdx.x * blockDim.x;
+  if(iter==0){
+    DataPassGBIter0_(VtoC,CtoV,Receivedword,Interleaver,N);
+  }
+  else{
+    DataPassGB_(VtoC,CtoV,Receivedword,Interleaver,N);
+  }
+  __syncthreads();
+  
+  CheckPassGB_(CtoV,VtoC,M);
+  __syncthreads();
+
+  APP_GB_(Decide,CtoV,Receivedword,Interleaver,N,M);
+  __syncthreads();
+
+  if(ComputeSyndrome_(Decide,Mat,M) == 0){
+    *isCodeWord = 0;
+  }
+}
 
 __global__ void global_decode_batched_stream_shared(int *VtoC,int *CtoV,int** Mat,
                               int* Decide,int *Receivedword,int *Interleaver,int M,int N,

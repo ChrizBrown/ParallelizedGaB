@@ -1,0 +1,960 @@
+stream 1: batch size: 1 alpha: 0.06000 BER: 28345 time average: 2.740166
+stream 1: batch size: 1 alpha: 0.05000 BER: 17028 time average: 1.585979
+stream 1: batch size: 1 alpha: 0.04000 BER: 2541 time average: 0.608691
+stream 1: batch size: 1 alpha: 0.03000 BER: 497 time average: 0.250047
+stream 1: batch size: 1 alpha: 0.02000 BER: 425 time average: 0.128815
+
+stream 1: batch size: 2 alpha: 0.06000 BER: 30899 time average: 1.235463
+stream 1: batch size: 2 alpha: 0.05000 BER: 13257 time average: 0.869623
+stream 1: batch size: 2 alpha: 0.04000 BER: 4160 time average: 0.408482
+stream 1: batch size: 2 alpha: 0.03000 BER: 450 time average: 0.150476
+stream 1: batch size: 2 alpha: 0.02000 BER: 379 time average: 0.066616
+
+stream 1: batch size: 3 alpha: 0.06000 BER: 29648 time average: 0.640785
+stream 1: batch size: 3 alpha: 0.05000 BER: 16973 time average: 0.486048
+stream 1: batch size: 3 alpha: 0.04000 BER: 2503 time average: 0.273160
+stream 1: batch size: 3 alpha: 0.03000 BER: 447 time average: 0.099387
+stream 1: batch size: 3 alpha: 0.02000 BER: 396 time average: 0.037643
+
+stream 1: batch size: 4 alpha: 0.06000 BER: 31148 time average: 0.437824
+stream 1: batch size: 4 alpha: 0.05000 BER: 11959 time average: 0.389284
+stream 1: batch size: 4 alpha: 0.04000 BER: 3464 time average: 0.233156
+stream 1: batch size: 4 alpha: 0.03000 BER: 454 time average: 0.084437
+stream 1: batch size: 4 alpha: 0.02000 BER: 373 time average: 0.030283
+
+stream 1: batch size: 5 alpha: 0.06000 BER: 29412 time average: 0.307622
+stream 1: batch size: 5 alpha: 0.05000 BER: 15081 time average: 0.310690
+stream 1: batch size: 5 alpha: 0.04000 BER: 2905 time average: 0.184877
+stream 1: batch size: 5 alpha: 0.03000 BER: 437 time average: 0.081074
+stream 1: batch size: 5 alpha: 0.02000 BER: 407 time average: 0.025834
+
+stream 1: batch size: 6 alpha: 0.06000 BER: 30193 time average: 0.279018
+stream 1: batch size: 6 alpha: 0.05000 BER: 13252 time average: 0.260958
+stream 1: batch size: 6 alpha: 0.04000 BER: 2289 time average: 0.161744
+stream 1: batch size: 6 alpha: 0.03000 BER: 436 time average: 0.067460
+stream 1: batch size: 6 alpha: 0.02000 BER: 404 time average: 0.020866
+
+stream 1: batch size: 7 alpha: 0.06000 BER: 30346 time average: 0.224522
+stream 1: batch size: 7 alpha: 0.05000 BER: 16198 time average: 0.216833
+stream 1: batch size: 7 alpha: 0.04000 BER: 1375 time average: 0.150252
+stream 1: batch size: 7 alpha: 0.03000 BER: 482 time average: 0.059664
+stream 1: batch size: 7 alpha: 0.02000 BER: 396 time average: 0.020143
+
+stream 1: batch size: 8 alpha: 0.06000 BER: 29483 time average: 0.204384
+stream 1: batch size: 8 alpha: 0.05000 BER: 15204 time average: 0.193513
+stream 1: batch size: 8 alpha: 0.04000 BER: 2825 time average: 0.128534
+stream 1: batch size: 8 alpha: 0.03000 BER: 463 time average: 0.056320
+stream 1: batch size: 8 alpha: 0.02000 BER: 417 time average: 0.017700
+
+stream 1: batch size: 9 alpha: 0.06000 BER: 28969 time average: 0.164224
+stream 1: batch size: 9 alpha: 0.05000 BER: 13385 time average: 0.162655
+stream 1: batch size: 9 alpha: 0.04000 BER: 3108 time average: 0.124348
+stream 1: batch size: 9 alpha: 0.03000 BER: 479 time average: 0.054442
+stream 1: batch size: 9 alpha: 0.02000 BER: 374 time average: 0.016302
+
+stream 1: batch size: 10 alpha: 0.06000 BER: 29181 time average: 0.156743
+stream 1: batch size: 10 alpha: 0.05000 BER: 15938 time average: 0.152751
+stream 1: batch size: 10 alpha: 0.04000 BER: 2999 time average: 0.111612
+stream 1: batch size: 10 alpha: 0.03000 BER: 513 time average: 0.050357
+stream 1: batch size: 10 alpha: 0.02000 BER: 384 time average: 0.016493
+
+stream 1: batch size: 11 alpha: 0.06000 BER: 28817 time average: 0.133021
+stream 1: batch size: 11 alpha: 0.05000 BER: 14288 time average: 0.124765
+stream 1: batch size: 11 alpha: 0.04000 BER: 1532 time average: 0.106596
+stream 1: batch size: 11 alpha: 0.03000 BER: 474 time average: 0.048894
+stream 1: batch size: 11 alpha: 0.02000 BER: 400 time average: 0.014674
+
+stream 1: batch size: 12 alpha: 0.06000 BER: 29226 time average: 0.115959
+stream 1: batch size: 12 alpha: 0.05000 BER: 15877 time average: 0.114753
+stream 1: batch size: 12 alpha: 0.04000 BER: 1907 time average: 0.100840
+stream 1: batch size: 12 alpha: 0.03000 BER: 473 time average: 0.042987
+stream 1: batch size: 12 alpha: 0.02000 BER: 391 time average: 0.014536
+
+stream 1: batch size: 13 alpha: 0.06000 BER: 29654 time average: 0.112039
+stream 1: batch size: 13 alpha: 0.05000 BER: 15557 time average: 0.114930
+stream 1: batch size: 13 alpha: 0.04000 BER: 1617 time average: 0.090760
+stream 1: batch size: 13 alpha: 0.03000 BER: 413 time average: 0.046409
+stream 1: batch size: 13 alpha: 0.02000 BER: 390 time average: 0.013161
+
+stream 1: batch size: 14 alpha: 0.06000 BER: 29614 time average: 0.101756
+stream 1: batch size: 14 alpha: 0.05000 BER: 17014 time average: 0.095016
+stream 1: batch size: 14 alpha: 0.04000 BER: 1799 time average: 0.087183
+stream 1: batch size: 14 alpha: 0.03000 BER: 438 time average: 0.042065
+stream 1: batch size: 14 alpha: 0.02000 BER: 391 time average: 0.012114
+
+stream 1: batch size: 15 alpha: 0.06000 BER: 30400 time average: 0.090216
+stream 1: batch size: 15 alpha: 0.05000 BER: 14236 time average: 0.091983
+stream 1: batch size: 15 alpha: 0.04000 BER: 1866 time average: 0.085609
+stream 1: batch size: 15 alpha: 0.03000 BER: 441 time average: 0.042169
+stream 1: batch size: 15 alpha: 0.02000 BER: 382 time average: 0.011833
+
+stream 1: batch size: 16 alpha: 0.06000 BER: 33927 time average: 0.088939
+stream 1: batch size: 16 alpha: 0.05000 BER: 16716 time average: 0.085881
+stream 1: batch size: 16 alpha: 0.04000 BER: 2110 time average: 0.081481
+stream 1: batch size: 16 alpha: 0.03000 BER: 447 time average: 0.045772
+stream 1: batch size: 16 alpha: 0.02000 BER: 382 time average: 0.013179
+
+stream 2: batch size: 1 alpha: 0.06000 BER: 27268 time average: 1.340473
+stream 2: batch size: 1 alpha: 0.05000 BER: 13622 time average: 0.848893
+stream 2: batch size: 1 alpha: 0.04000 BER: 2200 time average: 0.340608
+stream 2: batch size: 1 alpha: 0.03000 BER: 480 time average: 0.137413
+stream 2: batch size: 1 alpha: 0.02000 BER: 420 time average: 0.073173
+
+stream 2: batch size: 2 alpha: 0.06000 BER: 28677 time average: 0.596509
+stream 2: batch size: 2 alpha: 0.05000 BER: 16976 time average: 0.471865
+stream 2: batch size: 2 alpha: 0.04000 BER: 2868 time average: 0.211939
+stream 2: batch size: 2 alpha: 0.03000 BER: 509 time average: 0.078242
+stream 2: batch size: 2 alpha: 0.02000 BER: 398 time average: 0.034453
+
+stream 2: batch size: 3 alpha: 0.06000 BER: 29090 time average: 0.311265
+stream 2: batch size: 3 alpha: 0.05000 BER: 13016 time average: 0.275491
+stream 2: batch size: 3 alpha: 0.04000 BER: 1893 time average: 0.133326
+stream 2: batch size: 3 alpha: 0.03000 BER: 484 time average: 0.048591
+stream 2: batch size: 3 alpha: 0.02000 BER: 371 time average: 0.021272
+
+stream 2: batch size: 4 alpha: 0.06000 BER: 31177 time average: 0.246959
+stream 2: batch size: 4 alpha: 0.05000 BER: 17177 time average: 0.220266
+stream 2: batch size: 4 alpha: 0.04000 BER: 2762 time average: 0.122556
+stream 2: batch size: 4 alpha: 0.03000 BER: 433 time average: 0.042536
+stream 2: batch size: 4 alpha: 0.02000 BER: 386 time average: 0.015722
+
+stream 2: batch size: 5 alpha: 0.06000 BER: 29031 time average: 0.176489
+stream 2: batch size: 5 alpha: 0.05000 BER: 15804 time average: 0.155391
+stream 2: batch size: 5 alpha: 0.04000 BER: 1703 time average: 0.097451
+stream 2: batch size: 5 alpha: 0.03000 BER: 445 time average: 0.036931
+stream 2: batch size: 5 alpha: 0.02000 BER: 390 time average: 0.013784
+
+stream 2: batch size: 6 alpha: 0.06000 BER: 32538 time average: 0.147624
+stream 2: batch size: 6 alpha: 0.05000 BER: 15546 time average: 0.133672
+stream 2: batch size: 6 alpha: 0.04000 BER: 2854 time average: 0.088403
+stream 2: batch size: 6 alpha: 0.03000 BER: 468 time average: 0.032731
+stream 2: batch size: 6 alpha: 0.02000 BER: 387 time average: 0.011208
+
+stream 2: batch size: 7 alpha: 0.06000 BER: 29089 time average: 0.107624
+stream 2: batch size: 7 alpha: 0.05000 BER: 18364 time average: 0.109013
+stream 2: batch size: 7 alpha: 0.04000 BER: 2374 time average: 0.082750
+stream 2: batch size: 7 alpha: 0.03000 BER: 451 time average: 0.031834
+stream 2: batch size: 7 alpha: 0.02000 BER: 388 time average: 0.010089
+
+stream 2: batch size: 8 alpha: 0.06000 BER: 28263 time average: 0.094126
+stream 2: batch size: 8 alpha: 0.05000 BER: 15304 time average: 0.094661
+stream 2: batch size: 8 alpha: 0.04000 BER: 2528 time average: 0.063352
+stream 2: batch size: 8 alpha: 0.03000 BER: 529 time average: 0.027346
+stream 2: batch size: 8 alpha: 0.02000 BER: 390 time average: 0.008883
+
+stream 2: batch size: 9 alpha: 0.06000 BER: 29754 time average: 0.087169
+stream 2: batch size: 9 alpha: 0.05000 BER: 15778 time average: 0.082211
+stream 2: batch size: 9 alpha: 0.04000 BER: 2855 time average: 0.057093
+stream 2: batch size: 9 alpha: 0.03000 BER: 484 time average: 0.026411
+stream 2: batch size: 9 alpha: 0.02000 BER: 393 time average: 0.008720
+
+stream 2: batch size: 10 alpha: 0.06000 BER: 34443 time average: 0.072273
+stream 2: batch size: 10 alpha: 0.05000 BER: 16512 time average: 0.066415
+stream 2: batch size: 10 alpha: 0.04000 BER: 2265 time average: 0.056559
+stream 2: batch size: 10 alpha: 0.03000 BER: 437 time average: 0.026286
+stream 2: batch size: 10 alpha: 0.02000 BER: 358 time average: 0.007959
+
+stream 2: batch size: 11 alpha: 0.06000 BER: 30077 time average: 0.067340
+stream 2: batch size: 11 alpha: 0.05000 BER: 15991 time average: 0.066971
+stream 2: batch size: 11 alpha: 0.04000 BER: 1858 time average: 0.057460
+stream 2: batch size: 11 alpha: 0.03000 BER: 456 time average: 0.027165
+stream 2: batch size: 11 alpha: 0.02000 BER: 405 time average: 0.007290
+
+stream 2: batch size: 12 alpha: 0.06000 BER: 31631 time average: 0.057923
+stream 2: batch size: 12 alpha: 0.05000 BER: 17494 time average: 0.059353
+stream 2: batch size: 12 alpha: 0.04000 BER: 2405 time average: 0.046550
+stream 2: batch size: 12 alpha: 0.03000 BER: 404 time average: 0.023214
+stream 2: batch size: 12 alpha: 0.02000 BER: 379 time average: 0.007494
+
+stream 2: batch size: 13 alpha: 0.06000 BER: 34911 time average: 0.053546
+stream 2: batch size: 13 alpha: 0.05000 BER: 18449 time average: 0.052652
+stream 2: batch size: 13 alpha: 0.04000 BER: 2897 time average: 0.045248
+stream 2: batch size: 13 alpha: 0.03000 BER: 457 time average: 0.022357
+stream 2: batch size: 13 alpha: 0.02000 BER: 385 time average: 0.006438
+
+stream 2: batch size: 14 alpha: 0.06000 BER: 31522 time average: 0.049295
+stream 2: batch size: 14 alpha: 0.05000 BER: 18253 time average: 0.044616
+stream 2: batch size: 14 alpha: 0.04000 BER: 2390 time average: 0.036428
+stream 2: batch size: 14 alpha: 0.03000 BER: 451 time average: 0.022072
+stream 2: batch size: 14 alpha: 0.02000 BER: 361 time average: 0.006933
+
+stream 2: batch size: 15 alpha: 0.06000 BER: 32627 time average: 0.044116
+stream 2: batch size: 15 alpha: 0.05000 BER: 13328 time average: 0.042234
+stream 2: batch size: 15 alpha: 0.04000 BER: 2611 time average: 0.038410
+stream 2: batch size: 15 alpha: 0.03000 BER: 424 time average: 0.019381
+stream 2: batch size: 15 alpha: 0.02000 BER: 365 time average: 0.006710
+
+stream 2: batch size: 16 alpha: 0.06000 BER: 31887 time average: 0.043206
+stream 2: batch size: 16 alpha: 0.05000 BER: 15784 time average: 0.038377
+stream 2: batch size: 16 alpha: 0.04000 BER: 2393 time average: 0.036796
+stream 2: batch size: 16 alpha: 0.03000 BER: 425 time average: 0.019533
+stream 2: batch size: 16 alpha: 0.02000 BER: 343 time average: 0.006497
+
+stream 3: batch size: 1 alpha: 0.06000 BER: 28848 time average: 0.876320
+stream 3: batch size: 1 alpha: 0.05000 BER: 14221 time average: 0.550927
+stream 3: batch size: 1 alpha: 0.04000 BER: 1714 time average: 0.218404
+stream 3: batch size: 1 alpha: 0.03000 BER: 610 time average: 0.084167
+stream 3: batch size: 1 alpha: 0.02000 BER: 405 time average: 0.043551
+
+stream 3: batch size: 2 alpha: 0.06000 BER: 30160 time average: 0.372261
+stream 3: batch size: 2 alpha: 0.05000 BER: 17003 time average: 0.294833
+stream 3: batch size: 2 alpha: 0.04000 BER: 3035 time average: 0.134816
+stream 3: batch size: 2 alpha: 0.03000 BER: 523 time average: 0.049497
+stream 3: batch size: 2 alpha: 0.02000 BER: 391 time average: 0.022909
+
+stream 3: batch size: 3 alpha: 0.06000 BER: 26627 time average: 0.208249
+stream 3: batch size: 3 alpha: 0.05000 BER: 17402 time average: 0.180159
+stream 3: batch size: 3 alpha: 0.04000 BER: 2827 time average: 0.093606
+stream 3: batch size: 3 alpha: 0.03000 BER: 403 time average: 0.032856
+stream 3: batch size: 3 alpha: 0.02000 BER: 401 time average: 0.012935
+
+stream 3: batch size: 4 alpha: 0.06000 BER: 29022 time average: 0.142519
+stream 3: batch size: 4 alpha: 0.05000 BER: 16153 time average: 0.133897
+stream 3: batch size: 4 alpha: 0.04000 BER: 2350 time average: 0.068195
+stream 3: batch size: 4 alpha: 0.03000 BER: 434 time average: 0.027931
+stream 3: batch size: 4 alpha: 0.02000 BER: 386 time average: 0.010588
+
+stream 3: batch size: 5 alpha: 0.06000 BER: 30868 time average: 0.101990
+stream 3: batch size: 5 alpha: 0.05000 BER: 16234 time average: 0.096939
+stream 3: batch size: 5 alpha: 0.04000 BER: 2231 time average: 0.063533
+stream 3: batch size: 5 alpha: 0.03000 BER: 509 time average: 0.022351
+stream 3: batch size: 5 alpha: 0.02000 BER: 396 time average: 0.008298
+
+stream 3: batch size: 6 alpha: 0.06000 BER: 33206 time average: 0.088298
+stream 3: batch size: 6 alpha: 0.05000 BER: 15124 time average: 0.083267
+stream 3: batch size: 6 alpha: 0.04000 BER: 2017 time average: 0.057898
+stream 3: batch size: 6 alpha: 0.03000 BER: 473 time average: 0.021464
+stream 3: batch size: 6 alpha: 0.02000 BER: 421 time average: 0.007009
+
+stream 3: batch size: 7 alpha: 0.06000 BER: 33461 time average: 0.069049
+stream 3: batch size: 7 alpha: 0.05000 BER: 13000 time average: 0.067395
+stream 3: batch size: 7 alpha: 0.04000 BER: 3074 time average: 0.046660
+stream 3: batch size: 7 alpha: 0.03000 BER: 432 time average: 0.018996
+stream 3: batch size: 7 alpha: 0.02000 BER: 396 time average: 0.006624
+
+stream 3: batch size: 8 alpha: 0.06000 BER: 32814 time average: 0.062812
+stream 3: batch size: 8 alpha: 0.05000 BER: 16468 time average: 0.060511
+stream 3: batch size: 8 alpha: 0.04000 BER: 3526 time average: 0.045436
+stream 3: batch size: 8 alpha: 0.03000 BER: 449 time average: 0.017515
+stream 3: batch size: 8 alpha: 0.02000 BER: 386 time average: 0.005738
+
+stream 3: batch size: 9 alpha: 0.06000 BER: 34754 time average: 0.051243
+stream 3: batch size: 9 alpha: 0.05000 BER: 17837 time average: 0.048236
+stream 3: batch size: 9 alpha: 0.04000 BER: 2181 time average: 0.039105
+stream 3: batch size: 9 alpha: 0.03000 BER: 454 time average: 0.017323
+stream 3: batch size: 9 alpha: 0.02000 BER: 392 time average: 0.006014
+
+stream 3: batch size: 10 alpha: 0.06000 BER: 32490 time average: 0.047422
+stream 3: batch size: 10 alpha: 0.05000 BER: 16574 time average: 0.043485
+stream 3: batch size: 10 alpha: 0.04000 BER: 2192 time average: 0.035188
+stream 3: batch size: 10 alpha: 0.03000 BER: 456 time average: 0.013857
+stream 3: batch size: 10 alpha: 0.02000 BER: 376 time average: 0.004979
+
+stream 3: batch size: 11 alpha: 0.06000 BER: 35387 time average: 0.042737
+stream 3: batch size: 11 alpha: 0.05000 BER: 15630 time average: 0.039012
+stream 3: batch size: 11 alpha: 0.04000 BER: 1979 time average: 0.029017
+stream 3: batch size: 11 alpha: 0.03000 BER: 414 time average: 0.014972
+stream 3: batch size: 11 alpha: 0.02000 BER: 376 time average: 0.005265
+
+stream 3: batch size: 12 alpha: 0.06000 BER: 35985 time average: 0.037476
+stream 3: batch size: 12 alpha: 0.05000 BER: 15745 time average: 0.034705
+stream 3: batch size: 12 alpha: 0.04000 BER: 3151 time average: 0.029962
+stream 3: batch size: 12 alpha: 0.03000 BER: 454 time average: 0.012943
+stream 3: batch size: 12 alpha: 0.02000 BER: 393 time average: 0.004383
+
+stream 3: batch size: 13 alpha: 0.06000 BER: 29837 time average: 0.036476
+stream 3: batch size: 13 alpha: 0.05000 BER: 15494 time average: 0.034280
+stream 3: batch size: 13 alpha: 0.04000 BER: 1088 time average: 0.028749
+stream 3: batch size: 13 alpha: 0.03000 BER: 433 time average: 0.013903
+stream 3: batch size: 13 alpha: 0.02000 BER: 393 time average: 0.004437
+
+stream 3: batch size: 14 alpha: 0.06000 BER: 33556 time average: 0.032132
+stream 3: batch size: 14 alpha: 0.05000 BER: 16742 time average: 0.029270
+stream 3: batch size: 14 alpha: 0.04000 BER: 1578 time average: 0.026208
+stream 3: batch size: 14 alpha: 0.03000 BER: 451 time average: 0.015065
+stream 3: batch size: 14 alpha: 0.02000 BER: 399 time average: 0.004311
+
+stream 3: batch size: 15 alpha: 0.06000 BER: 32025 time average: 0.029866
+stream 3: batch size: 15 alpha: 0.05000 BER: 14445 time average: 0.029996
+stream 3: batch size: 15 alpha: 0.04000 BER: 1702 time average: 0.024902
+stream 3: batch size: 15 alpha: 0.03000 BER: 499 time average: 0.013090
+stream 3: batch size: 15 alpha: 0.02000 BER: 401 time average: 0.004274
+
+stream 3: batch size: 16 alpha: 0.06000 BER: 37814 time average: 0.028119
+stream 3: batch size: 16 alpha: 0.05000 BER: 18172 time average: 0.027549
+stream 3: batch size: 16 alpha: 0.04000 BER: 2719 time average: 0.026509
+stream 3: batch size: 16 alpha: 0.03000 BER: 463 time average: 0.013542
+stream 3: batch size: 16 alpha: 0.02000 BER: 401 time average: 0.003872
+
+stream 4: batch size: 1 alpha: 0.06000 BER: 29147 time average: 0.626749
+stream 4: batch size: 1 alpha: 0.05000 BER: 13474 time average: 0.379787
+stream 4: batch size: 1 alpha: 0.04000 BER: 2688 time average: 0.158851
+stream 4: batch size: 1 alpha: 0.03000 BER: 465 time average: 0.063192
+stream 4: batch size: 1 alpha: 0.02000 BER: 418 time average: 0.033445
+
+stream 4: batch size: 2 alpha: 0.06000 BER: 30278 time average: 0.291967
+stream 4: batch size: 2 alpha: 0.05000 BER: 15123 time average: 0.224421
+stream 4: batch size: 2 alpha: 0.04000 BER: 2528 time average: 0.092035
+stream 4: batch size: 2 alpha: 0.03000 BER: 430 time average: 0.034932
+stream 4: batch size: 2 alpha: 0.02000 BER: 396 time average: 0.016347
+
+stream 4: batch size: 3 alpha: 0.06000 BER: 32008 time average: 0.146596
+stream 4: batch size: 3 alpha: 0.05000 BER: 18730 time average: 0.138187
+stream 4: batch size: 3 alpha: 0.04000 BER: 1597 time average: 0.069978
+stream 4: batch size: 3 alpha: 0.03000 BER: 446 time average: 0.025179
+stream 4: batch size: 3 alpha: 0.02000 BER: 377 time average: 0.009920
+
+stream 4: batch size: 4 alpha: 0.06000 BER: 31413 time average: 0.106982
+stream 4: batch size: 4 alpha: 0.05000 BER: 16179 time average: 0.103835
+stream 4: batch size: 4 alpha: 0.04000 BER: 2496 time average: 0.062844
+stream 4: batch size: 4 alpha: 0.03000 BER: 442 time average: 0.020817
+stream 4: batch size: 4 alpha: 0.02000 BER: 391 time average: 0.007770
+
+stream 4: batch size: 5 alpha: 0.06000 BER: 32056 time average: 0.078365
+stream 4: batch size: 5 alpha: 0.05000 BER: 17381 time average: 0.073115
+stream 4: batch size: 5 alpha: 0.04000 BER: 2082 time average: 0.045368
+stream 4: batch size: 5 alpha: 0.03000 BER: 527 time average: 0.017983
+stream 4: batch size: 5 alpha: 0.02000 BER: 391 time average: 0.006235
+
+stream 4: batch size: 6 alpha: 0.06000 BER: 30786 time average: 0.065965
+stream 4: batch size: 6 alpha: 0.05000 BER: 13386 time average: 0.062911
+stream 4: batch size: 6 alpha: 0.04000 BER: 2159 time average: 0.041233
+stream 4: batch size: 6 alpha: 0.03000 BER: 430 time average: 0.015360
+stream 4: batch size: 6 alpha: 0.02000 BER: 386 time average: 0.005250
+
+stream 4: batch size: 7 alpha: 0.06000 BER: 32142 time average: 0.052082
+stream 4: batch size: 7 alpha: 0.05000 BER: 15090 time average: 0.047930
+stream 4: batch size: 7 alpha: 0.04000 BER: 1718 time average: 0.031991
+stream 4: batch size: 7 alpha: 0.03000 BER: 471 time average: 0.014873
+stream 4: batch size: 7 alpha: 0.02000 BER: 399 time average: 0.004766
+
+stream 4: batch size: 8 alpha: 0.06000 BER: 33620 time average: 0.046027
+stream 4: batch size: 8 alpha: 0.05000 BER: 16210 time average: 0.041161
+stream 4: batch size: 8 alpha: 0.04000 BER: 2894 time average: 0.027981
+stream 4: batch size: 8 alpha: 0.03000 BER: 437 time average: 0.015380
+stream 4: batch size: 8 alpha: 0.02000 BER: 398 time average: 0.004545
+
+stream 4: batch size: 9 alpha: 0.06000 BER: 35600 time average: 0.039856
+stream 4: batch size: 9 alpha: 0.05000 BER: 18721 time average: 0.038864
+stream 4: batch size: 9 alpha: 0.04000 BER: 3480 time average: 0.028954
+stream 4: batch size: 9 alpha: 0.03000 BER: 442 time average: 0.012480
+stream 4: batch size: 9 alpha: 0.02000 BER: 385 time average: 0.004428
+
+stream 4: batch size: 10 alpha: 0.06000 BER: 30514 time average: 0.036498
+stream 4: batch size: 10 alpha: 0.05000 BER: 16379 time average: 0.034942
+stream 4: batch size: 10 alpha: 0.04000 BER: 3125 time average: 0.027644
+stream 4: batch size: 10 alpha: 0.03000 BER: 440 time average: 0.012758
+stream 4: batch size: 10 alpha: 0.02000 BER: 391 time average: 0.003750
+
+stream 4: batch size: 11 alpha: 0.06000 BER: 34700 time average: 0.031165
+stream 4: batch size: 11 alpha: 0.05000 BER: 16574 time average: 0.030299
+stream 4: batch size: 11 alpha: 0.04000 BER: 2411 time average: 0.024659
+stream 4: batch size: 11 alpha: 0.03000 BER: 413 time average: 0.013355
+stream 4: batch size: 11 alpha: 0.02000 BER: 396 time average: 0.003516
+
+stream 4: batch size: 12 alpha: 0.06000 BER: 39147 time average: 0.027507
+stream 4: batch size: 12 alpha: 0.05000 BER: 17085 time average: 0.027279
+stream 4: batch size: 12 alpha: 0.04000 BER: 1697 time average: 0.023252
+stream 4: batch size: 12 alpha: 0.03000 BER: 455 time average: 0.011485
+stream 4: batch size: 12 alpha: 0.02000 BER: 404 time average: 0.003503
+
+stream 4: batch size: 13 alpha: 0.06000 BER: 39017 time average: 0.026601
+stream 4: batch size: 13 alpha: 0.05000 BER: 17712 time average: 0.026301
+stream 4: batch size: 13 alpha: 0.04000 BER: 3201 time average: 0.026245
+stream 4: batch size: 13 alpha: 0.03000 BER: 464 time average: 0.011957
+stream 4: batch size: 13 alpha: 0.02000 BER: 400 time average: 0.003686
+
+stream 4: batch size: 14 alpha: 0.06000 BER: 28093 time average: 0.025785
+stream 4: batch size: 14 alpha: 0.05000 BER: 16791 time average: 0.022271
+stream 4: batch size: 14 alpha: 0.04000 BER: 2024 time average: 0.018705
+stream 4: batch size: 14 alpha: 0.03000 BER: 444 time average: 0.010669
+stream 4: batch size: 14 alpha: 0.02000 BER: 381 time average: 0.003277
+
+stream 4: batch size: 15 alpha: 0.06000 BER: 29536 time average: 0.022608
+stream 4: batch size: 15 alpha: 0.05000 BER: 18526 time average: 0.020679
+stream 4: batch size: 15 alpha: 0.04000 BER: 1445 time average: 0.017832
+stream 4: batch size: 15 alpha: 0.03000 BER: 465 time average: 0.009596
+stream 4: batch size: 15 alpha: 0.02000 BER: 383 time average: 0.002887
+
+stream 4: batch size: 16 alpha: 0.06000 BER: 35930 time average: 0.021337
+stream 4: batch size: 16 alpha: 0.05000 BER: 15434 time average: 0.019242
+stream 4: batch size: 16 alpha: 0.04000 BER: 1903 time average: 0.017776
+stream 4: batch size: 16 alpha: 0.03000 BER: 500 time average: 0.009878
+stream 4: batch size: 16 alpha: 0.02000 BER: 385 time average: 0.002777
+
+stream 5: batch size: 1 alpha: 0.06000 BER: 28720 time average: 0.518148
+stream 5: batch size: 1 alpha: 0.05000 BER: 14432 time average: 0.307454
+stream 5: batch size: 1 alpha: 0.04000 BER: 1498 time average: 0.116295
+stream 5: batch size: 1 alpha: 0.03000 BER: 474 time average: 0.050919
+stream 5: batch size: 1 alpha: 0.02000 BER: 417 time average: 0.026548
+
+stream 5: batch size: 2 alpha: 0.06000 BER: 30804 time average: 0.237782
+stream 5: batch size: 2 alpha: 0.05000 BER: 18657 time average: 0.186589
+stream 5: batch size: 2 alpha: 0.04000 BER: 2568 time average: 0.093975
+stream 5: batch size: 2 alpha: 0.03000 BER: 481 time average: 0.028947
+stream 5: batch size: 2 alpha: 0.02000 BER: 371 time average: 0.012778
+
+stream 5: batch size: 3 alpha: 0.06000 BER: 32593 time average: 0.127821
+stream 5: batch size: 3 alpha: 0.05000 BER: 14490 time average: 0.108813
+stream 5: batch size: 3 alpha: 0.04000 BER: 2085 time average: 0.053413
+stream 5: batch size: 3 alpha: 0.03000 BER: 448 time average: 0.020864
+stream 5: batch size: 3 alpha: 0.02000 BER: 382 time average: 0.007761
+
+stream 5: batch size: 4 alpha: 0.06000 BER: 31005 time average: 0.085562
+stream 5: batch size: 4 alpha: 0.05000 BER: 17809 time average: 0.083112
+stream 5: batch size: 4 alpha: 0.04000 BER: 2101 time average: 0.050119
+stream 5: batch size: 4 alpha: 0.03000 BER: 442 time average: 0.017344
+stream 5: batch size: 4 alpha: 0.02000 BER: 374 time average: 0.006261
+
+stream 5: batch size: 5 alpha: 0.06000 BER: 32644 time average: 0.062612
+stream 5: batch size: 5 alpha: 0.05000 BER: 15834 time average: 0.061683
+stream 5: batch size: 5 alpha: 0.04000 BER: 2554 time average: 0.035202
+stream 5: batch size: 5 alpha: 0.03000 BER: 522 time average: 0.014277
+stream 5: batch size: 5 alpha: 0.02000 BER: 395 time average: 0.004759
+
+stream 5: batch size: 6 alpha: 0.06000 BER: 31064 time average: 0.053732
+stream 5: batch size: 6 alpha: 0.05000 BER: 16444 time average: 0.047556
+stream 5: batch size: 6 alpha: 0.04000 BER: 1141 time average: 0.033908
+stream 5: batch size: 6 alpha: 0.03000 BER: 450 time average: 0.014482
+stream 5: batch size: 6 alpha: 0.02000 BER: 366 time average: 0.004278
+
+stream 5: batch size: 7 alpha: 0.06000 BER: 37177 time average: 0.042205
+stream 5: batch size: 7 alpha: 0.05000 BER: 13509 time average: 0.038137
+stream 5: batch size: 7 alpha: 0.04000 BER: 1995 time average: 0.027025
+stream 5: batch size: 7 alpha: 0.03000 BER: 462 time average: 0.013130
+stream 5: batch size: 7 alpha: 0.02000 BER: 410 time average: 0.003833
+
+stream 5: batch size: 8 alpha: 0.06000 BER: 30441 time average: 0.037705
+stream 5: batch size: 8 alpha: 0.05000 BER: 15551 time average: 0.034804
+stream 5: batch size: 8 alpha: 0.04000 BER: 2830 time average: 0.026345
+stream 5: batch size: 8 alpha: 0.03000 BER: 576 time average: 0.010663
+stream 5: batch size: 8 alpha: 0.02000 BER: 382 time average: 0.003485
+
+stream 5: batch size: 9 alpha: 0.06000 BER: 37128 time average: 0.031085
+stream 5: batch size: 9 alpha: 0.05000 BER: 18404 time average: 0.031321
+stream 5: batch size: 9 alpha: 0.04000 BER: 1585 time average: 0.024550
+stream 5: batch size: 9 alpha: 0.03000 BER: 492 time average: 0.011707
+stream 5: batch size: 9 alpha: 0.02000 BER: 400 time average: 0.003141
+
+stream 5: batch size: 10 alpha: 0.06000 BER: 38311 time average: 0.029077
+stream 5: batch size: 10 alpha: 0.05000 BER: 15086 time average: 0.028117
+stream 5: batch size: 10 alpha: 0.04000 BER: 2241 time average: 0.023352
+stream 5: batch size: 10 alpha: 0.03000 BER: 449 time average: 0.009063
+stream 5: batch size: 10 alpha: 0.02000 BER: 391 time average: 0.002928
+
+stream 5: batch size: 11 alpha: 0.06000 BER: 29424 time average: 0.026232
+stream 5: batch size: 11 alpha: 0.05000 BER: 18039 time average: 0.024212
+stream 5: batch size: 11 alpha: 0.04000 BER: 1990 time average: 0.021572
+stream 5: batch size: 11 alpha: 0.03000 BER: 470 time average: 0.009882
+stream 5: batch size: 11 alpha: 0.02000 BER: 391 time average: 0.003018
+
+stream 5: batch size: 12 alpha: 0.06000 BER: 32107 time average: 0.024391
+stream 5: batch size: 12 alpha: 0.05000 BER: 17042 time average: 0.021650
+stream 5: batch size: 12 alpha: 0.04000 BER: 1609 time average: 0.018589
+stream 5: batch size: 12 alpha: 0.03000 BER: 415 time average: 0.008870
+stream 5: batch size: 12 alpha: 0.02000 BER: 399 time average: 0.002868
+
+stream 5: batch size: 13 alpha: 0.06000 BER: 33426 time average: 0.020647
+stream 5: batch size: 13 alpha: 0.05000 BER: 19435 time average: 0.019114
+stream 5: batch size: 13 alpha: 0.04000 BER: 1344 time average: 0.018675
+stream 5: batch size: 13 alpha: 0.03000 BER: 467 time average: 0.009163
+stream 5: batch size: 13 alpha: 0.02000 BER: 395 time average: 0.002324
+
+stream 5: batch size: 14 alpha: 0.06000 BER: 37772 time average: 0.018722
+stream 5: batch size: 14 alpha: 0.05000 BER: 22671 time average: 0.017836
+stream 5: batch size: 14 alpha: 0.04000 BER: 1847 time average: 0.015910
+stream 5: batch size: 14 alpha: 0.03000 BER: 438 time average: 0.008780
+stream 5: batch size: 14 alpha: 0.02000 BER: 368 time average: 0.002370
+
+stream 5: batch size: 15 alpha: 0.06000 BER: 39370 time average: 0.017034
+stream 5: batch size: 15 alpha: 0.05000 BER: 17221 time average: 0.016283
+stream 5: batch size: 15 alpha: 0.04000 BER: 1815 time average: 0.014735
+stream 5: batch size: 15 alpha: 0.03000 BER: 405 time average: 0.008119
+stream 5: batch size: 15 alpha: 0.02000 BER: 383 time average: 0.002336
+
+stream 5: batch size: 16 alpha: 0.06000 BER: 44093 time average: 0.016193
+stream 5: batch size: 16 alpha: 0.05000 BER: 23038 time average: 0.015075
+stream 5: batch size: 16 alpha: 0.04000 BER: 3425 time average: 0.014292
+stream 5: batch size: 16 alpha: 0.03000 BER: 452 time average: 0.008063
+stream 5: batch size: 16 alpha: 0.02000 BER: 370 time average: 0.002501
+
+stream 6: batch size: 1 alpha: 0.06000 BER: 29486 time average: 0.445589
+stream 6: batch size: 1 alpha: 0.05000 BER: 16665 time average: 0.223484
+stream 6: batch size: 1 alpha: 0.04000 BER: 2159 time average: 0.096686
+stream 6: batch size: 1 alpha: 0.03000 BER: 520 time average: 0.042102
+stream 6: batch size: 1 alpha: 0.02000 BER: 407 time average: 0.022162
+
+stream 6: batch size: 2 alpha: 0.06000 BER: 33096 time average: 0.196929
+stream 6: batch size: 2 alpha: 0.05000 BER: 17335 time average: 0.145187
+stream 6: batch size: 2 alpha: 0.04000 BER: 1232 time average: 0.063803
+stream 6: batch size: 2 alpha: 0.03000 BER: 442 time average: 0.025326
+stream 6: batch size: 2 alpha: 0.02000 BER: 426 time average: 0.010756
+
+stream 6: batch size: 3 alpha: 0.06000 BER: 34796 time average: 0.103122
+stream 6: batch size: 3 alpha: 0.05000 BER: 12000 time average: 0.098291
+stream 6: batch size: 3 alpha: 0.04000 BER: 2237 time average: 0.045104
+stream 6: batch size: 3 alpha: 0.03000 BER: 488 time average: 0.015806
+stream 6: batch size: 3 alpha: 0.02000 BER: 398 time average: 0.006407
+
+stream 6: batch size: 4 alpha: 0.06000 BER: 33516 time average: 0.074711
+stream 6: batch size: 4 alpha: 0.05000 BER: 15983 time average: 0.062446
+stream 6: batch size: 4 alpha: 0.04000 BER: 2856 time average: 0.034943
+stream 6: batch size: 4 alpha: 0.03000 BER: 454 time average: 0.014155
+stream 6: batch size: 4 alpha: 0.02000 BER: 382 time average: 0.004991
+
+stream 6: batch size: 5 alpha: 0.06000 BER: 31158 time average: 0.050924
+stream 6: batch size: 5 alpha: 0.05000 BER: 15098 time average: 0.046032
+stream 6: batch size: 5 alpha: 0.04000 BER: 3707 time average: 0.026850
+stream 6: batch size: 5 alpha: 0.03000 BER: 436 time average: 0.013170
+stream 6: batch size: 5 alpha: 0.02000 BER: 380 time average: 0.004024
+
+stream 6: batch size: 6 alpha: 0.06000 BER: 36952 time average: 0.043588
+stream 6: batch size: 6 alpha: 0.05000 BER: 17026 time average: 0.038315
+stream 6: batch size: 6 alpha: 0.04000 BER: 1992 time average: 0.028389
+stream 6: batch size: 6 alpha: 0.03000 BER: 447 time average: 0.009571
+stream 6: batch size: 6 alpha: 0.02000 BER: 388 time average: 0.003539
+
+stream 6: batch size: 7 alpha: 0.06000 BER: 33946 time average: 0.034611
+stream 6: batch size: 7 alpha: 0.05000 BER: 15761 time average: 0.035394
+stream 6: batch size: 7 alpha: 0.04000 BER: 1906 time average: 0.023535
+stream 6: batch size: 7 alpha: 0.03000 BER: 452 time average: 0.009729
+stream 6: batch size: 7 alpha: 0.02000 BER: 382 time average: 0.003054
+
+stream 6: batch size: 8 alpha: 0.06000 BER: 39968 time average: 0.031212
+stream 6: batch size: 8 alpha: 0.05000 BER: 15057 time average: 0.030372
+stream 6: batch size: 8 alpha: 0.04000 BER: 2390 time average: 0.024032
+stream 6: batch size: 8 alpha: 0.03000 BER: 457 time average: 0.010940
+stream 6: batch size: 8 alpha: 0.02000 BER: 378 time average: 0.003014
+
+stream 6: batch size: 9 alpha: 0.06000 BER: 40413 time average: 0.025725
+stream 6: batch size: 9 alpha: 0.05000 BER: 16686 time average: 0.024770
+stream 6: batch size: 9 alpha: 0.04000 BER: 2385 time average: 0.019754
+stream 6: batch size: 9 alpha: 0.03000 BER: 451 time average: 0.009317
+stream 6: batch size: 9 alpha: 0.02000 BER: 385 time average: 0.002905
+
+stream 6: batch size: 10 alpha: 0.06000 BER: 33229 time average: 0.023684
+stream 6: batch size: 10 alpha: 0.05000 BER: 20090 time average: 0.021644
+stream 6: batch size: 10 alpha: 0.04000 BER: 1754 time average: 0.018945
+stream 6: batch size: 10 alpha: 0.03000 BER: 445 time average: 0.007797
+stream 6: batch size: 10 alpha: 0.02000 BER: 381 time average: 0.002725
+
+stream 6: batch size: 11 alpha: 0.06000 BER: 29884 time average: 0.021580
+stream 6: batch size: 11 alpha: 0.05000 BER: 21691 time average: 0.019915
+stream 6: batch size: 11 alpha: 0.04000 BER: 1935 time average: 0.017203
+stream 6: batch size: 11 alpha: 0.03000 BER: 439 time average: 0.008279
+stream 6: batch size: 11 alpha: 0.02000 BER: 381 time average: 0.002571
+
+stream 6: batch size: 12 alpha: 0.06000 BER: 40068 time average: 0.019110
+stream 6: batch size: 12 alpha: 0.05000 BER: 19574 time average: 0.017860
+stream 6: batch size: 12 alpha: 0.04000 BER: 1963 time average: 0.014465
+stream 6: batch size: 12 alpha: 0.03000 BER: 468 time average: 0.008178
+stream 6: batch size: 12 alpha: 0.02000 BER: 361 time average: 0.002144
+
+stream 6: batch size: 13 alpha: 0.06000 BER: 41188 time average: 0.017386
+stream 6: batch size: 13 alpha: 0.05000 BER: 18795 time average: 0.016112
+stream 6: batch size: 13 alpha: 0.04000 BER: 4141 time average: 0.014529
+stream 6: batch size: 13 alpha: 0.03000 BER: 496 time average: 0.008486
+stream 6: batch size: 13 alpha: 0.02000 BER: 375 time average: 0.002240
+
+stream 6: batch size: 14 alpha: 0.06000 BER: 42797 time average: 0.016098
+stream 6: batch size: 14 alpha: 0.05000 BER: 19672 time average: 0.015508
+stream 6: batch size: 14 alpha: 0.04000 BER: 2888 time average: 0.013700
+stream 6: batch size: 14 alpha: 0.03000 BER: 410 time average: 0.007359
+stream 6: batch size: 14 alpha: 0.02000 BER: 375 time average: 0.002224
+
+stream 6: batch size: 15 alpha: 0.06000 BER: 45756 time average: 0.014770
+stream 6: batch size: 15 alpha: 0.05000 BER: 25604 time average: 0.014417
+stream 6: batch size: 15 alpha: 0.04000 BER: 1450 time average: 0.013325
+stream 6: batch size: 15 alpha: 0.03000 BER: 469 time average: 0.006852
+stream 6: batch size: 15 alpha: 0.02000 BER: 365 time average: 0.002049
+
+stream 6: batch size: 16 alpha: 0.06000 BER: 49032 time average: 0.013898
+stream 6: batch size: 16 alpha: 0.05000 BER: 17157 time average: 0.013125
+stream 6: batch size: 16 alpha: 0.04000 BER: 3598 time average: 0.012604
+stream 6: batch size: 16 alpha: 0.03000 BER: 473 time average: 0.006270
+stream 6: batch size: 16 alpha: 0.02000 BER: 405 time average: 0.001952
+
+stream 7: batch size: 1 alpha: 0.06000 BER: 31503 time average: 0.383372
+stream 7: batch size: 1 alpha: 0.05000 BER: 15768 time average: 0.234747
+stream 7: batch size: 1 alpha: 0.04000 BER: 1916 time average: 0.089763
+stream 7: batch size: 1 alpha: 0.03000 BER: 484 time average: 0.035174
+stream 7: batch size: 1 alpha: 0.02000 BER: 405 time average: 0.021131
+
+stream 7: batch size: 2 alpha: 0.06000 BER: 27773 time average: 0.169738
+stream 7: batch size: 2 alpha: 0.05000 BER: 14006 time average: 0.138807
+stream 7: batch size: 2 alpha: 0.04000 BER: 2348 time average: 0.058308
+stream 7: batch size: 2 alpha: 0.03000 BER: 503 time average: 0.022368
+stream 7: batch size: 2 alpha: 0.02000 BER: 384 time average: 0.009653
+
+stream 7: batch size: 3 alpha: 0.06000 BER: 34391 time average: 0.089455
+stream 7: batch size: 3 alpha: 0.05000 BER: 17150 time average: 0.076684
+stream 7: batch size: 3 alpha: 0.04000 BER: 3122 time average: 0.041139
+stream 7: batch size: 3 alpha: 0.03000 BER: 492 time average: 0.015926
+stream 7: batch size: 3 alpha: 0.02000 BER: 403 time average: 0.005983
+
+stream 7: batch size: 4 alpha: 0.06000 BER: 29786 time average: 0.064685
+stream 7: batch size: 4 alpha: 0.05000 BER: 16057 time average: 0.056119
+stream 7: batch size: 4 alpha: 0.04000 BER: 3015 time average: 0.029636
+stream 7: batch size: 4 alpha: 0.03000 BER: 478 time average: 0.013316
+stream 7: batch size: 4 alpha: 0.02000 BER: 413 time average: 0.004702
+
+stream 7: batch size: 5 alpha: 0.06000 BER: 37097 time average: 0.045410
+stream 7: batch size: 5 alpha: 0.05000 BER: 18465 time average: 0.041837
+stream 7: batch size: 5 alpha: 0.04000 BER: 1329 time average: 0.024242
+stream 7: batch size: 5 alpha: 0.03000 BER: 454 time average: 0.011088
+stream 7: batch size: 5 alpha: 0.02000 BER: 393 time average: 0.003416
+
+stream 7: batch size: 6 alpha: 0.06000 BER: 31644 time average: 0.038421
+stream 7: batch size: 6 alpha: 0.05000 BER: 16716 time average: 0.036989
+stream 7: batch size: 6 alpha: 0.04000 BER: 3274 time average: 0.024359
+stream 7: batch size: 6 alpha: 0.03000 BER: 471 time average: 0.009023
+stream 7: batch size: 6 alpha: 0.02000 BER: 377 time average: 0.003338
+
+stream 7: batch size: 7 alpha: 0.06000 BER: 40453 time average: 0.031505
+stream 7: batch size: 7 alpha: 0.05000 BER: 16264 time average: 0.029724
+stream 7: batch size: 7 alpha: 0.04000 BER: 2668 time average: 0.020545
+stream 7: batch size: 7 alpha: 0.03000 BER: 489 time average: 0.009145
+stream 7: batch size: 7 alpha: 0.02000 BER: 392 time average: 0.002801
+
+stream 7: batch size: 8 alpha: 0.06000 BER: 29042 time average: 0.028193
+stream 7: batch size: 8 alpha: 0.05000 BER: 20177 time average: 0.024554
+stream 7: batch size: 8 alpha: 0.04000 BER: 1733 time average: 0.018004
+stream 7: batch size: 8 alpha: 0.03000 BER: 425 time average: 0.008468
+stream 7: batch size: 8 alpha: 0.02000 BER: 399 time average: 0.002698
+
+stream 7: batch size: 9 alpha: 0.06000 BER: 31467 time average: 0.023833
+stream 7: batch size: 9 alpha: 0.05000 BER: 17440 time average: 0.022465
+stream 7: batch size: 9 alpha: 0.04000 BER: 2953 time average: 0.017626
+stream 7: batch size: 9 alpha: 0.03000 BER: 445 time average: 0.008021
+stream 7: batch size: 9 alpha: 0.02000 BER: 388 time average: 0.002168
+
+stream 7: batch size: 10 alpha: 0.06000 BER: 33958 time average: 0.019499
+stream 7: batch size: 10 alpha: 0.05000 BER: 18384 time average: 0.024616
+stream 7: batch size: 10 alpha: 0.04000 BER: 1824 time average: 0.015453
+stream 7: batch size: 10 alpha: 0.03000 BER: 435 time average: 0.007053
+stream 7: batch size: 10 alpha: 0.02000 BER: 381 time average: 0.002254
+
+stream 7: batch size: 11 alpha: 0.06000 BER: 39721 time average: 0.017580
+stream 7: batch size: 11 alpha: 0.05000 BER: 21552 time average: 0.016520
+stream 7: batch size: 11 alpha: 0.04000 BER: 2653 time average: 0.013201
+stream 7: batch size: 11 alpha: 0.03000 BER: 497 time average: 0.006764
+stream 7: batch size: 11 alpha: 0.02000 BER: 366 time average: 0.001982
+
+stream 7: batch size: 12 alpha: 0.06000 BER: 43615 time average: 0.016006
+stream 7: batch size: 12 alpha: 0.05000 BER: 17961 time average: 0.015049
+stream 7: batch size: 12 alpha: 0.04000 BER: 1797 time average: 0.012911
+stream 7: batch size: 12 alpha: 0.03000 BER: 459 time average: 0.006000
+stream 7: batch size: 12 alpha: 0.02000 BER: 392 time average: 0.002190
+
+stream 7: batch size: 13 alpha: 0.06000 BER: 46226 time average: 0.014818
+stream 7: batch size: 13 alpha: 0.05000 BER: 21482 time average: 0.014128
+stream 7: batch size: 13 alpha: 0.04000 BER: 3077 time average: 0.013042
+stream 7: batch size: 13 alpha: 0.03000 BER: 409 time average: 0.006187
+stream 7: batch size: 13 alpha: 0.02000 BER: 379 time average: 0.001942
+
+stream 7: batch size: 14 alpha: 0.06000 BER: 49869 time average: 0.013629
+stream 7: batch size: 14 alpha: 0.05000 BER: 22339 time average: 0.012785
+stream 7: batch size: 14 alpha: 0.04000 BER: 1624 time average: 0.010789
+stream 7: batch size: 14 alpha: 0.03000 BER: 458 time average: 0.005530
+stream 7: batch size: 14 alpha: 0.02000 BER: 392 time average: 0.001841
+
+stream 7: batch size: 15 alpha: 0.06000 BER: 54860 time average: 0.012601
+stream 7: batch size: 15 alpha: 0.05000 BER: 22254 time average: 0.011820
+stream 7: batch size: 15 alpha: 0.04000 BER: 1746 time average: 0.010677
+stream 7: batch size: 15 alpha: 0.03000 BER: 460 time average: 0.005686
+stream 7: batch size: 15 alpha: 0.02000 BER: 387 time average: 0.001635
+
+stream 7: batch size: 16 alpha: 0.06000 BER: 29702 time average: 0.013071
+stream 7: batch size: 16 alpha: 0.05000 BER: 21216 time average: 0.010920
+stream 7: batch size: 16 alpha: 0.04000 BER: 2499 time average: 0.009814
+stream 7: batch size: 16 alpha: 0.03000 BER: 495 time average: 0.005544
+stream 7: batch size: 16 alpha: 0.02000 BER: 396 time average: 0.001943
+
+stream 8: batch size: 1 alpha: 0.06000 BER: 30188 time average: 0.356784
+stream 8: batch size: 1 alpha: 0.05000 BER: 16086 time average: 0.200949
+stream 8: batch size: 1 alpha: 0.04000 BER: 2156 time average: 0.075494
+stream 8: batch size: 1 alpha: 0.03000 BER: 517 time average: 0.032191
+stream 8: batch size: 1 alpha: 0.02000 BER: 423 time average: 0.017964
+
+stream 8: batch size: 2 alpha: 0.06000 BER: 28110 time average: 0.141916
+stream 8: batch size: 2 alpha: 0.05000 BER: 15727 time average: 0.105829
+stream 8: batch size: 2 alpha: 0.04000 BER: 3049 time average: 0.045371
+stream 8: batch size: 2 alpha: 0.03000 BER: 469 time average: 0.019811
+stream 8: batch size: 2 alpha: 0.02000 BER: 414 time average: 0.008361
+
+stream 8: batch size: 3 alpha: 0.06000 BER: 34524 time average: 0.074088
+stream 8: batch size: 3 alpha: 0.05000 BER: 16798 time average: 0.063637
+stream 8: batch size: 3 alpha: 0.04000 BER: 2386 time average: 0.033169
+stream 8: batch size: 3 alpha: 0.03000 BER: 502 time average: 0.012168
+stream 8: batch size: 3 alpha: 0.02000 BER: 408 time average: 0.005074
+
+stream 8: batch size: 4 alpha: 0.06000 BER: 31287 time average: 0.057024
+stream 8: batch size: 4 alpha: 0.05000 BER: 13995 time average: 0.050332
+stream 8: batch size: 4 alpha: 0.04000 BER: 2636 time average: 0.025875
+stream 8: batch size: 4 alpha: 0.03000 BER: 551 time average: 0.010421
+stream 8: batch size: 4 alpha: 0.02000 BER: 392 time average: 0.004048
+
+stream 8: batch size: 5 alpha: 0.06000 BER: 32188 time average: 0.039198
+stream 8: batch size: 5 alpha: 0.05000 BER: 18952 time average: 0.035047
+stream 8: batch size: 5 alpha: 0.04000 BER: 2142 time average: 0.021663
+stream 8: batch size: 5 alpha: 0.03000 BER: 458 time average: 0.009063
+stream 8: batch size: 5 alpha: 0.02000 BER: 411 time average: 0.003311
+
+stream 8: batch size: 6 alpha: 0.06000 BER: 38921 time average: 0.033752
+stream 8: batch size: 6 alpha: 0.05000 BER: 17951 time average: 0.033080
+stream 8: batch size: 6 alpha: 0.04000 BER: 2865 time average: 0.020543
+stream 8: batch size: 6 alpha: 0.03000 BER: 461 time average: 0.007690
+stream 8: batch size: 6 alpha: 0.02000 BER: 381 time average: 0.002860
+
+stream 8: batch size: 7 alpha: 0.06000 BER: 42722 time average: 0.026042
+stream 8: batch size: 7 alpha: 0.05000 BER: 12874 time average: 0.024638
+stream 8: batch size: 7 alpha: 0.04000 BER: 2903 time average: 0.016355
+stream 8: batch size: 7 alpha: 0.03000 BER: 426 time average: 0.006550
+stream 8: batch size: 7 alpha: 0.02000 BER: 361 time average: 0.002343
+
+stream 8: batch size: 8 alpha: 0.06000 BER: 36671 time average: 0.023283
+stream 8: batch size: 8 alpha: 0.05000 BER: 20032 time average: 0.020893
+stream 8: batch size: 8 alpha: 0.04000 BER: 1791 time average: 0.016915
+stream 8: batch size: 8 alpha: 0.03000 BER: 474 time average: 0.006800
+stream 8: batch size: 8 alpha: 0.02000 BER: 403 time average: 0.002139
+
+stream 8: batch size: 9 alpha: 0.06000 BER: 38108 time average: 0.019015
+stream 8: batch size: 9 alpha: 0.05000 BER: 18269 time average: 0.018456
+stream 8: batch size: 9 alpha: 0.04000 BER: 2032 time average: 0.016127
+stream 8: batch size: 9 alpha: 0.03000 BER: 486 time average: 0.006433
+stream 8: batch size: 9 alpha: 0.02000 BER: 393 time average: 0.002107
+
+stream 8: batch size: 10 alpha: 0.06000 BER: 41142 time average: 0.017011
+stream 8: batch size: 10 alpha: 0.05000 BER: 15327 time average: 0.016065
+stream 8: batch size: 10 alpha: 0.04000 BER: 3505 time average: 0.013622
+stream 8: batch size: 10 alpha: 0.03000 BER: 807 time average: 0.006321
+stream 8: batch size: 10 alpha: 0.02000 BER: 404 time average: 0.002139
+
+stream 8: batch size: 11 alpha: 0.06000 BER: 44539 time average: 0.015357
+stream 8: batch size: 11 alpha: 0.05000 BER: 19360 time average: 0.014964
+stream 8: batch size: 11 alpha: 0.04000 BER: 2500 time average: 0.013253
+stream 8: batch size: 11 alpha: 0.03000 BER: 447 time average: 0.005523
+stream 8: batch size: 11 alpha: 0.02000 BER: 418 time average: 0.001599
+
+stream 8: batch size: 12 alpha: 0.06000 BER: 49471 time average: 0.014205
+stream 8: batch size: 12 alpha: 0.05000 BER: 21898 time average: 0.013412
+stream 8: batch size: 12 alpha: 0.04000 BER: 1229 time average: 0.011546
+stream 8: batch size: 12 alpha: 0.03000 BER: 440 time average: 0.005398
+stream 8: batch size: 12 alpha: 0.02000 BER: 393 time average: 0.001680
+
+stream 8: batch size: 13 alpha: 0.06000 BER: 54172 time average: 0.012801
+stream 8: batch size: 13 alpha: 0.05000 BER: 19393 time average: 0.012118
+stream 8: batch size: 13 alpha: 0.04000 BER: 1718 time average: 0.010966
+stream 8: batch size: 13 alpha: 0.03000 BER: 438 time average: 0.005833
+stream 8: batch size: 13 alpha: 0.02000 BER: 393 time average: 0.001699
+
+stream 8: batch size: 14 alpha: 0.06000 BER: 30650 time average: 0.013087
+stream 8: batch size: 14 alpha: 0.05000 BER: 17804 time average: 0.011364
+stream 8: batch size: 14 alpha: 0.04000 BER: 2132 time average: 0.009783
+stream 8: batch size: 14 alpha: 0.03000 BER: 460 time average: 0.005149
+stream 8: batch size: 14 alpha: 0.02000 BER: 375 time average: 0.001846
+
+stream 8: batch size: 15 alpha: 0.06000 BER: 32022 time average: 0.012096
+stream 8: batch size: 15 alpha: 0.05000 BER: 19306 time average: 0.010572
+stream 8: batch size: 15 alpha: 0.04000 BER: 3124 time average: 0.009163
+stream 8: batch size: 15 alpha: 0.03000 BER: 403 time average: 0.004419
+stream 8: batch size: 15 alpha: 0.02000 BER: 350 time average: 0.001512
+
+stream 8: batch size: 16 alpha: 0.06000 BER: 33873 time average: 0.010476
+stream 8: batch size: 16 alpha: 0.05000 BER: 22138 time average: 0.009737
+stream 8: batch size: 16 alpha: 0.04000 BER: 3293 time average: 0.009611
+stream 8: batch size: 16 alpha: 0.03000 BER: 474 time average: 0.004844
+stream 8: batch size: 16 alpha: 0.02000 BER: 360 time average: 0.001619
+
+stream 9: batch size: 1 alpha: 0.06000 BER: 28474 time average: 0.312908
+stream 9: batch size: 1 alpha: 0.05000 BER: 14376 time average: 0.185732
+stream 9: batch size: 1 alpha: 0.04000 BER: 2154 time average: 0.071429
+stream 9: batch size: 1 alpha: 0.03000 BER: 505 time average: 0.027967
+stream 9: batch size: 1 alpha: 0.02000 BER: 395 time average: 0.016303
+
+stream 9: batch size: 2 alpha: 0.06000 BER: 32659 time average: 0.128338
+stream 9: batch size: 2 alpha: 0.05000 BER: 17505 time average: 0.099383
+stream 9: batch size: 2 alpha: 0.04000 BER: 1648 time average: 0.042316
+stream 9: batch size: 2 alpha: 0.03000 BER: 458 time average: 0.017307
+stream 9: batch size: 2 alpha: 0.02000 BER: 398 time average: 0.007604
+
+stream 9: batch size: 3 alpha: 0.06000 BER: 38079 time average: 0.066533
+stream 9: batch size: 3 alpha: 0.05000 BER: 17128 time average: 0.061651
+stream 9: batch size: 3 alpha: 0.04000 BER: 3035 time average: 0.030817
+stream 9: batch size: 3 alpha: 0.03000 BER: 437 time average: 0.012051
+stream 9: batch size: 3 alpha: 0.02000 BER: 408 time average: 0.004604
+
+stream 9: batch size: 4 alpha: 0.06000 BER: 29378 time average: 0.049983
+stream 9: batch size: 4 alpha: 0.05000 BER: 18152 time average: 0.047648
+stream 9: batch size: 4 alpha: 0.04000 BER: 3408 time average: 0.022422
+stream 9: batch size: 4 alpha: 0.03000 BER: 489 time average: 0.009457
+stream 9: batch size: 4 alpha: 0.02000 BER: 397 time average: 0.003363
+
+stream 9: batch size: 5 alpha: 0.06000 BER: 34191 time average: 0.035284
+stream 9: batch size: 5 alpha: 0.05000 BER: 14962 time average: 0.032731
+stream 9: batch size: 5 alpha: 0.04000 BER: 2536 time average: 0.020608
+stream 9: batch size: 5 alpha: 0.03000 BER: 466 time average: 0.007954
+stream 9: batch size: 5 alpha: 0.02000 BER: 393 time average: 0.002828
+
+stream 9: batch size: 6 alpha: 0.06000 BER: 42089 time average: 0.029323
+stream 9: batch size: 6 alpha: 0.05000 BER: 17012 time average: 0.026178
+stream 9: batch size: 6 alpha: 0.04000 BER: 2095 time average: 0.017328
+stream 9: batch size: 6 alpha: 0.03000 BER: 454 time average: 0.007026
+stream 9: batch size: 6 alpha: 0.02000 BER: 384 time average: 0.002477
+
+stream 9: batch size: 7 alpha: 0.06000 BER: 30445 time average: 0.022983
+stream 9: batch size: 7 alpha: 0.05000 BER: 13676 time average: 0.021618
+stream 9: batch size: 7 alpha: 0.04000 BER: 3727 time average: 0.015216
+stream 9: batch size: 7 alpha: 0.03000 BER: 447 time average: 0.006411
+stream 9: batch size: 7 alpha: 0.02000 BER: 379 time average: 0.002283
+
+stream 9: batch size: 8 alpha: 0.06000 BER: 38971 time average: 0.020592
+stream 9: batch size: 8 alpha: 0.05000 BER: 14435 time average: 0.018286
+stream 9: batch size: 8 alpha: 0.04000 BER: 2592 time average: 0.013986
+stream 9: batch size: 8 alpha: 0.03000 BER: 432 time average: 0.006028
+stream 9: batch size: 8 alpha: 0.02000 BER: 405 time average: 0.001969
+
+stream 9: batch size: 9 alpha: 0.06000 BER: 41229 time average: 0.017294
+stream 9: batch size: 9 alpha: 0.05000 BER: 17869 time average: 0.016169
+stream 9: batch size: 9 alpha: 0.04000 BER: 2131 time average: 0.012346
+stream 9: batch size: 9 alpha: 0.03000 BER: 427 time average: 0.006178
+stream 9: batch size: 9 alpha: 0.02000 BER: 398 time average: 0.001946
+
+stream 9: batch size: 10 alpha: 0.06000 BER: 45472 time average: 0.015038
+stream 9: batch size: 10 alpha: 0.05000 BER: 19626 time average: 0.014471
+stream 9: batch size: 10 alpha: 0.04000 BER: 1497 time average: 0.012468
+stream 9: batch size: 10 alpha: 0.03000 BER: 463 time average: 0.006008
+stream 9: batch size: 10 alpha: 0.02000 BER: 384 time average: 0.001773
+
+stream 9: batch size: 11 alpha: 0.06000 BER: 54572 time average: 0.013746
+stream 9: batch size: 11 alpha: 0.05000 BER: 14546 time average: 0.013123
+stream 9: batch size: 11 alpha: 0.04000 BER: 2424 time average: 0.010331
+stream 9: batch size: 11 alpha: 0.03000 BER: 491 time average: 0.004899
+stream 9: batch size: 11 alpha: 0.02000 BER: 388 time average: 0.001659
+
+stream 9: batch size: 12 alpha: 0.06000 BER: 55430 time average: 0.012622
+stream 9: batch size: 12 alpha: 0.05000 BER: 17994 time average: 0.011944
+stream 9: batch size: 12 alpha: 0.04000 BER: 1372 time average: 0.010711
+stream 9: batch size: 12 alpha: 0.03000 BER: 498 time average: 0.004888
+stream 9: batch size: 12 alpha: 0.02000 BER: 420 time average: 0.001374
+
+stream 9: batch size: 13 alpha: 0.06000 BER: 58678 time average: 0.011572
+stream 9: batch size: 13 alpha: 0.05000 BER: 19820 time average: 0.010926
+stream 9: batch size: 13 alpha: 0.04000 BER: 2213 time average: 0.009688
+stream 9: batch size: 13 alpha: 0.03000 BER: 481 time average: 0.004374
+stream 9: batch size: 13 alpha: 0.02000 BER: 382 time average: 0.001374
+
+stream 9: batch size: 14 alpha: 0.06000 BER: 33092 time average: 0.011043
+stream 9: batch size: 14 alpha: 0.05000 BER: 20362 time average: 0.009990
+stream 9: batch size: 14 alpha: 0.04000 BER: 2494 time average: 0.009535
+stream 9: batch size: 14 alpha: 0.03000 BER: 464 time average: 0.004320
+stream 9: batch size: 14 alpha: 0.02000 BER: 385 time average: 0.001390
+
+stream 9: batch size: 15 alpha: 0.06000 BER: 34529 time average: 0.010549
+stream 9: batch size: 15 alpha: 0.05000 BER: 18168 time average: 0.009323
+stream 9: batch size: 15 alpha: 0.04000 BER: 2012 time average: 0.008415
+stream 9: batch size: 15 alpha: 0.03000 BER: 695 time average: 0.004518
+stream 9: batch size: 15 alpha: 0.02000 BER: 383 time average: 0.001339
+
+stream 9: batch size: 16 alpha: 0.06000 BER: 37402 time average: 0.010045
+stream 9: batch size: 16 alpha: 0.05000 BER: 21752 time average: 0.008679
+stream 9: batch size: 16 alpha: 0.04000 BER: 3853 time average: 0.008294
+stream 9: batch size: 16 alpha: 0.03000 BER: 489 time average: 0.004492
+stream 9: batch size: 16 alpha: 0.02000 BER: 395 time average: 0.001361
+
+stream 10: batch size: 1 alpha: 0.06000 BER: 30013 time average: 0.257953
+stream 10: batch size: 1 alpha: 0.05000 BER: 14612 time average: 0.161652
+stream 10: batch size: 1 alpha: 0.04000 BER: 2202 time average: 0.058573
+stream 10: batch size: 1 alpha: 0.03000 BER: 480 time average: 0.024907
+stream 10: batch size: 1 alpha: 0.02000 BER: 420 time average: 0.013119
+
+stream 10: batch size: 2 alpha: 0.06000 BER: 30322 time average: 0.109655
+stream 10: batch size: 2 alpha: 0.05000 BER: 17864 time average: 0.093232
+stream 10: batch size: 2 alpha: 0.04000 BER: 2383 time average: 0.037541
+stream 10: batch size: 2 alpha: 0.03000 BER: 489 time average: 0.014898
+stream 10: batch size: 2 alpha: 0.02000 BER: 399 time average: 0.006495
+
+stream 10: batch size: 3 alpha: 0.06000 BER: 33231 time average: 0.058731
+stream 10: batch size: 3 alpha: 0.05000 BER: 14594 time average: 0.052729
+stream 10: batch size: 3 alpha: 0.04000 BER: 1539 time average: 0.026290
+stream 10: batch size: 3 alpha: 0.03000 BER: 461 time average: 0.009568
+stream 10: batch size: 3 alpha: 0.02000 BER: 377 time average: 0.003938
+
+stream 10: batch size: 4 alpha: 0.06000 BER: 31964 time average: 0.043768
+stream 10: batch size: 4 alpha: 0.05000 BER: 19820 time average: 0.043205
+stream 10: batch size: 4 alpha: 0.04000 BER: 2611 time average: 0.022768
+stream 10: batch size: 4 alpha: 0.03000 BER: 470 time average: 0.008911
+stream 10: batch size: 4 alpha: 0.02000 BER: 384 time average: 0.002993
+
+stream 10: batch size: 5 alpha: 0.06000 BER: 41672 time average: 0.031176
+stream 10: batch size: 5 alpha: 0.05000 BER: 17186 time average: 0.030022
+stream 10: batch size: 5 alpha: 0.04000 BER: 2799 time average: 0.017431
+stream 10: batch size: 5 alpha: 0.03000 BER: 439 time average: 0.007166
+stream 10: batch size: 5 alpha: 0.02000 BER: 389 time average: 0.002419
+
+stream 10: batch size: 6 alpha: 0.06000 BER: 33477 time average: 0.026516
+stream 10: batch size: 6 alpha: 0.05000 BER: 16074 time average: 0.023885
+stream 10: batch size: 6 alpha: 0.04000 BER: 2586 time average: 0.015413
+stream 10: batch size: 6 alpha: 0.03000 BER: 499 time average: 0.006198
+stream 10: batch size: 6 alpha: 0.02000 BER: 383 time average: 0.002181
+
+stream 10: batch size: 7 alpha: 0.06000 BER: 39894 time average: 0.020688
+stream 10: batch size: 7 alpha: 0.05000 BER: 14984 time average: 0.019536
+stream 10: batch size: 7 alpha: 0.04000 BER: 2729 time average: 0.013881
+stream 10: batch size: 7 alpha: 0.03000 BER: 463 time average: 0.005623
+stream 10: batch size: 7 alpha: 0.02000 BER: 385 time average: 0.001981
+
+stream 10: batch size: 8 alpha: 0.06000 BER: 43701 time average: 0.017694
+stream 10: batch size: 8 alpha: 0.05000 BER: 19443 time average: 0.016276
+stream 10: batch size: 8 alpha: 0.04000 BER: 2284 time average: 0.011747
+stream 10: batch size: 8 alpha: 0.03000 BER: 505 time average: 0.005348
+stream 10: batch size: 8 alpha: 0.02000 BER: 388 time average: 0.001752
+
+stream 10: batch size: 9 alpha: 0.06000 BER: 47726 time average: 0.015042
+stream 10: batch size: 9 alpha: 0.05000 BER: 18264 time average: 0.014824
+stream 10: batch size: 9 alpha: 0.04000 BER: 2341 time average: 0.012619
+stream 10: batch size: 9 alpha: 0.03000 BER: 443 time average: 0.005412
+stream 10: batch size: 9 alpha: 0.02000 BER: 381 time average: 0.001693
+
+stream 10: batch size: 10 alpha: 0.06000 BER: 51752 time average: 0.013628
+stream 10: batch size: 10 alpha: 0.05000 BER: 22557 time average: 0.012624
+stream 10: batch size: 10 alpha: 0.04000 BER: 1632 time average: 0.010483
+stream 10: batch size: 10 alpha: 0.03000 BER: 427 time average: 0.005025
+stream 10: batch size: 10 alpha: 0.02000 BER: 370 time average: 0.001355
+
+stream 10: batch size: 11 alpha: 0.06000 BER: 28856 time average: 0.012560
+stream 10: batch size: 11 alpha: 0.05000 BER: 18137 time average: 0.011500
+stream 10: batch size: 11 alpha: 0.04000 BER: 1536 time average: 0.009965
+stream 10: batch size: 11 alpha: 0.03000 BER: 438 time average: 0.004132
+stream 10: batch size: 11 alpha: 0.02000 BER: 376 time average: 0.001442
+
+stream 10: batch size: 12 alpha: 0.06000 BER: 31628 time average: 0.011840
+stream 10: batch size: 12 alpha: 0.05000 BER: 20070 time average: 0.010568
+stream 10: batch size: 12 alpha: 0.04000 BER: 3097 time average: 0.008803
+stream 10: batch size: 12 alpha: 0.03000 BER: 454 time average: 0.004338
+stream 10: batch size: 12 alpha: 0.02000 BER: 404 time average: 0.001285
+
+stream 10: batch size: 13 alpha: 0.06000 BER: 35204 time average: 0.010523
+stream 10: batch size: 13 alpha: 0.05000 BER: 20817 time average: 0.009570
+stream 10: batch size: 13 alpha: 0.04000 BER: 2006 time average: 0.008748
+stream 10: batch size: 13 alpha: 0.03000 BER: 497 time average: 0.003547
+stream 10: batch size: 13 alpha: 0.02000 BER: 413 time average: 0.001284
+
+stream 10: batch size: 14 alpha: 0.06000 BER: 35039 time average: 0.009404
+stream 10: batch size: 14 alpha: 0.05000 BER: 23035 time average: 0.009062
+stream 10: batch size: 14 alpha: 0.04000 BER: 3805 time average: 0.008481
+stream 10: batch size: 14 alpha: 0.03000 BER: 445 time average: 0.004166
+stream 10: batch size: 14 alpha: 0.02000 BER: 386 time average: 0.001330
+
+stream 10: batch size: 15 alpha: 0.06000 BER: 38990 time average: 0.009250
+stream 10: batch size: 15 alpha: 0.05000 BER: 22021 time average: 0.008390
+stream 10: batch size: 15 alpha: 0.04000 BER: 2309 time average: 0.007050
+stream 10: batch size: 15 alpha: 0.03000 BER: 455 time average: 0.003906
+stream 10: batch size: 15 alpha: 0.02000 BER: 388 time average: 0.001200
+
+stream 10: batch size: 16 alpha: 0.06000 BER: 41720 time average: 0.008786
+stream 10: batch size: 16 alpha: 0.05000 BER: 28149 time average: 0.007795
+stream 10: batch size: 16 alpha: 0.04000 BER: 3689 time average: 0.007072
+stream 10: batch size: 16 alpha: 0.03000 BER: 444 time average: 0.003506
+stream 10: batch size: 16 alpha: 0.02000 BER: 356 time average: 0.001170
+
