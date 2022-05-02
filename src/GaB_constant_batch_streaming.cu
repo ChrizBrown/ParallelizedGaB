@@ -21,6 +21,7 @@
 #include <chrono>    
 
 #include <cuda_runtime.h>
+#include <cuda_profiler_api.h>
 #include "const_kernels.cu"
 
 #define arrondi(x) ((ceil(x)-x)<(x-floor(x))?(int)ceil(x):(int)floor(x))
@@ -105,12 +106,12 @@ int main(int argc, char * argv[])
   batchSize=1;
   int num_streams = 0;
   if(argc == 6){
-    NbIter = atoi(argv[4]);
+    NbIter = atoi(argv[5]);
   }
   if(argc > 3)
     batchSize = atoi(argv[3]);
-  if (argc > 5)
-    num_streams = atoi(argv[5]);
+  if (argc > 4)
+    num_streams = atoi(argv[4]);
 
   printf("Running Batched Streaming GaB Decoder on GPU | Max Iter = %d | Batch Size = %d | Stream size = %d\n", NbIter, batchSize, num_streams);
   
@@ -345,7 +346,7 @@ int main(int argc, char * argv[])
   // for (k=0;k<NbBranch;k++) {CtoV[k]=0;} // CAN WE SKIP THIS IF WE ENSURE TO SET ALL VALUES in CtoV b4 processing via syncThread()? 
   // cudaMemset(device_CtoV, 0, N * sizeof(int));
 
-
+  cudaProfilerStart();
   for (int stream_cnt = 0; stream_cnt < num_streams; stream_cnt++)
   {
     // Copy Received Word to the GPU
@@ -382,6 +383,7 @@ int main(int argc, char * argv[])
     }
     // Get Decide array back from CPU
     cudaMemcpyAsync(Decide+offset, device_Decide+offset, batchSize * N * sizeof(int), cudaMemcpyDeviceToHost, pStreams[stream_cnt]);
+    cudaProfilerStop();
   }
 
    

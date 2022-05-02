@@ -17,5 +17,6 @@ make
 
 # And here is an example:
 # ./EXEC MATRIX_FILE RESULT_FILE PARALLEL_FLAG TOTAL_ITERATIONS BATCH_SIZE
-./GaB       ../datasets/IRISC_dv4_R050_L54_N1296_Dform IRISC_dv4_R050_L54_N1296_Dform_Res 1 1000
+./GaB       ../datasets/IRISC_dv4_R050_L54_N1296_Dform IRISC_dv4_R050_L54_N1296_Dform_Res 1
 ./GaB_batch ../datasets/IRISC_dv4_R050_L54_N1296_Dform IRISC_dv4_R050_L54_N1296_Dform_Res 1 1000 10
+./GaB_constant_batch_streaming ../datasets/IRISC_dv4_R050_L54_N1296_Dform IRISC_dv4_R050_L54_N1296_Dform_Res \<batch size\> \<stream size\>
