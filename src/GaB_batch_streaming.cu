@@ -105,12 +105,12 @@ int main(int argc, char * argv[])
   batchSize=1;
   int num_streams = 0;
   if(argc == 6){
-    NbIter = atoi(argv[4]);
+    NbIter = atoi(argv[5]);
   }
   if(argc > 3)
     batchSize = atoi(argv[3]);
-  if (argc > 5)
-    num_streams = atoi(argv[5]);
+  if (argc > 4)
+    num_streams = atoi(argv[4]);
 
   printf("Running Batched Streaming GaB Decoder on GPU | Max Iter = %d | Batch Size = %d | Stream size = %d\n", NbIter, batchSize, num_streams);
   
