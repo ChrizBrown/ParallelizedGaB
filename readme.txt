@@ -6,7 +6,7 @@ Modified by Chris Brown and Jared Causey
 mkdir build
 cd build/
 module load cuda11/11.0
-cmake ..
+cmake3 ..
 make
 
 This will also compile the serial implementation. Details on running the serial implementation can be found below.

@@ -105,12 +105,12 @@ int main(int argc, char * argv[])
   batchSize=1;
   int num_streams = 0;
   if(argc == 6){
-    NbIter = atoi(argv[4]);
+    NbIter = atoi(argv[5]);
   }
   if(argc > 3)
     batchSize = atoi(argv[3]);
-  if (argc > 5)
-    num_streams = atoi(argv[5]);
+  if (argc > 4)
+    num_streams = atoi(argv[4]);
   FILE* res = fopen("sweeping_experiment_result.txt", "w");
   FILE* res2 = fopen("sweeping_experiment_result_6.csv","w");
   fprintf(res2,"Stream Size,Batch Size,Time (ms)\n");
