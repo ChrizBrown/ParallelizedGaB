@@ -8,7 +8,7 @@ Modified by Chris Brown and Jared Causey
 ########################################################################################################################
 # Compiling
 ########################################################################################################################
-cd <path-to-code-directory>
+cd <path-to-project-code>
 mkdir build
 cd build/
 module load cuda11/11.0
@@ -35,11 +35,13 @@ stream size = 4
 
 To run with the slurm script:
 1. Change line 34 in 'run_gab.slurm' to point to your path to the source code
-2. Type:
+2. In top level project directory run:
    sbatch run_gab.slurm
 
 The slurm script will run the optimized GPU code and the serial code. It also contains the ability to run some of the
 other executables. The details on these can be found at the bottom of this README in the 'Running All Executables' section.
+
+Slurm script results can be found under <path-to-project-code>/build/results
 
 
 ########################################################################################################################
