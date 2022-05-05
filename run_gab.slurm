@@ -37,19 +37,18 @@ mkdir -p results
 ###
 STREAMS=($(seq 1 1 4))
 BATCHES=($(seq 1 1 16))
-### Nete that this code tests only version 0. You need to change the command line parameter "0" to "1" to check for version1. 
 
 #SERIAL
 /usr/bin/time ./GaB ../datasets/IRISC_dv4_R050_L54_N1296_Dform IRISC_dv4_R050_L54_N1296_Dform_Res  > results/gab_serial_results.txt
 
 #GLOBAL
-/usr/bin/time ./GaB ../datasets/IRISC_dv4_R050_L54_N1296_Dform IRISC_dv4_R050_L54_N1296_Dform_Res 1 > results/gab_global_results.txt
+#/usr/bin/time ./GaB ../datasets/IRISC_dv4_R050_L54_N1296_Dform IRISC_dv4_R050_L54_N1296_Dform_Res 1 > results/gab_global_results.txt
 
 #BATCHED (BATCH=16)
-/usr/bin/time ./GaB_batch ../datasets/IRISC_dv4_R050_L54_N1296_Dform IRISC_dv4_R050_L54_N1296_Dform_Res 16 > results/gab_batched_results.txt
+#/usr/bin/time ./GaB_batch ../datasets/IRISC_dv4_R050_L54_N1296_Dform IRISC_dv4_R050_L54_N1296_Dform_Res 16 > results/gab_batched_results.txt
 
 #BATCHED STREAM (BATCH=16 STREAM=4)
-/usr/bin/time ./GaB_batch_streaming ../datasets/IRISC_dv4_R050_L54_N1296_Dform IRISC_dv4_R050_L54_N1296_Dform_Res 16 4 > results/gab_batched_streamed_results.txt
+#/usr/bin/time ./GaB_batch_streaming ../datasets/IRISC_dv4_R050_L54_N1296_Dform IRISC_dv4_R050_L54_N1296_Dform_Res 16 4 > results/gab_batched_streamed_results.txt
 
 #CONSTANT MEMORY BATCHED STREAM (BATCH=16 STREAM=4)
 /usr/bin/time ./GaB_constant_batch_streaming ../datasets/IRISC_dv4_R050_L54_N1296_Dform IRISC_dv4_R050_L54_N1296_Dform_Res 16 4 > results/gab_constant_batched_streamed_results.txt
